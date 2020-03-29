@@ -15,7 +15,7 @@ class EmailController extends Controller
         public function sendOtp($email)
     {
     	// validate email id
-    	$status=0;
+    	
     	$data['email']=$email;
     	$data['otp']=rand(1000,9999);
     	// $data['title'] = "This is Test Mail Tuts Make";
@@ -23,6 +23,9 @@ class EmailController extends Controller
     	$checkRecentAttempt=otp::where('email',$email)->orderby('created_at','desc')->first();
 		// if the otp ages more than 5 in then create a new one else send a status to use the existing
 		$minMins=date('i', mktime(0,0,300));
+
+
+
 		if(isset($checkRecentAttempt)){
 		$diff=date_diff(new \DateTime(date('Y-m-d H:i:s e')),$checkRecentAttempt->created_at);
 			if($diff->format('%i')<=$minMins){
@@ -32,6 +35,14 @@ class EmailController extends Controller
 		    return response()->json($response, '200');
 			}
 		}
+
+		if(!preg_match("/^[_.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+.)+[a-zA-Z]{2,6}$/i", $email)){
+				$response = [
+				'message' =>'Invalid Email ID',
+				];
+				return response()->json($response, '400');
+				}
+
 
         $rgst=new otp;
         $rgst->email=$email;

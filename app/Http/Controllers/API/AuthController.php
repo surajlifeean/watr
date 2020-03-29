@@ -9,23 +9,31 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Validator;
+use App\otp;
 
 class AuthController extends ResponseController
 {
     //create user
     public function signup(Request $request)
     {
+    	// dd($request['email']);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|',
             'email' => 'required|string|email|unique:users',
             'password' => 'required',
-            'confirm_password' => 'required|same:password'
+            'confirm_password' => 'required|same:password',
+            'otp'=>'required'
         ]);
 
         if($validator->fails()){
             return $this->sendError($validator->errors());       
         }
 
+    	$otp=otp::where('email',$request['email'])->orderby('created_at','desc')->first();
+		
+
+    	if($otp->otp==$request['otp']){
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
@@ -38,6 +46,12 @@ class AuthController extends ResponseController
             $error = "Sorry! Registration is not successfull.";
             return $this->sendError($error, 401); 
         }
+       }
+       else{
+       	    $error = "Hey! Please enter a valid OTP.";
+            return $this->sendError($error, 401); 
+       }
+
         
     }
     
