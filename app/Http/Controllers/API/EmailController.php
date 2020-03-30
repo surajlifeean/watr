@@ -31,6 +31,7 @@ class EmailController extends Controller
 			if($diff->format('%i')<=$minMins){
 			$response = [
 		        'message' =>'Please use the OTP you have already received a moment ago',
+		        'ack'=>0
 		    ];
 		    return response()->json($response, '200');
 			}
@@ -39,8 +40,9 @@ class EmailController extends Controller
 		if(!preg_match("/^[_.0-9a-zA-Z-]+@([0-9a-zA-Z][0-9a-zA-Z-]+.)+[a-zA-Z]{2,6}$/i", $email)){
 				$response = [
 				'message' =>'Invalid Email ID',
+				'ack'=>0
 				];
-				return response()->json($response, '400');
+				return response()->json($response, '200');
 				}
 
 
@@ -60,13 +62,15 @@ class EmailController extends Controller
         if (Mail::failures()) {
 				$response = [
 				'message' =>'Sorry! Something went wrong while sending OTP. Try after some time',
+				'ack'=>0
 				];
-				return response()->json($response, '400');
+				return response()->json($response, '200');
 				}
 
         else{
 				$response = [
 				'message' =>'Please enter the OTP we have sent',
+				'ack'=>0
 				];
 				return response()->json($response, '200');
 			}

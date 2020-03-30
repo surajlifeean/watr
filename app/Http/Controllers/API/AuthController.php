@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Validator;
 use App\otp;
+use App\Details;
 
 class AuthController extends ResponseController
 {
@@ -27,11 +28,22 @@ class AuthController extends ResponseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+        	
+        	$error['message'] = $validator->errors()->first('email');
+            $error['ack']=0;
+            return $this->sendResponse($error);    
+
+            // return $this->sendResponse($validator->errors());       
         }
 
     	$otp=otp::where('email',$request['email'])->orderby('created_at','desc')->first();
 		
+		if(!isset($otp))
+			{
+			$error['message'] = "No, OTP entered";
+			$error['ack'] = 0;
+            return $this->sendResponse($error, 200); 
+			}
 
     	if($otp->otp==$request['otp']){
         $input = $request->all();
@@ -40,16 +52,23 @@ class AuthController extends ResponseController
         if($user){
             $success['token'] =  $user->createToken('token')->accessToken;
             $success['message'] = "Registration successfull..";
+            $success['ack'] = 1;
+            $success['name'] = $user->name;
+            $success['email'] = $user->email;
+            $success['number'] = $user->number;
             return $this->sendResponse($success);
         }
         else{
-            $error = "Sorry! Registration is not successfull.";
-            return $this->sendError($error, 401); 
+            $error['message'] = "Sorry! Registration is not successfull.";
+            $error['ack'] = 0;
+            return $this->sendResponse($error, 200); 
         }
        }
+
        else{
-       	    $error = "Hey! Please enter a valid OTP.";
-            return $this->sendError($error, 401); 
+            $error['message'] = "Enter a Valid OTP";
+            $error['ack'] = 0;
+            return $this->sendResponse($error, 200); 
        }
 
         
@@ -63,17 +82,35 @@ class AuthController extends ResponseController
             'password' => 'required'
         ]);
 
+       // $validator->error();
+
         if($validator->fails()){
-            return $this->sendError($validator->errors());       
+        	// $validator->getMessageBag()->add('ack',0); 
+        	$error['message'] = $validator->errors()->first('email');
+            $error['ack']=0;
+            return $this->sendResponse($error);       
         }
 
         $credentials = request(['email', 'password']);
         if(!Auth::attempt($credentials)){
-            $error = "Unauthorized";
-            return $this->sendError($error, 401);
+            $error['message'] = "Unauthorized";
+            $error['ack']="0";
+            return $this->sendResponse($error, 200);
         }
+
         $user = $request->user();
         $success['token'] =  $user->createToken('token')->accessToken;
+        $success['ack'] = 1;
+        $success['name'] = $user->name;
+        $success['email'] = $user->email;
+        $success['number'] = $user->number;
+        $success['dob'] = $user->dob;
+        $success['gender'] = $user->gender;
+        $success['state'] = $user->state;
+        $success['city'] = $user->city;
+        $success['address'] = $user->address;
+        $success['pincode'] = $user->pincode;
+
         return $this->sendResponse($success);
     }
 
