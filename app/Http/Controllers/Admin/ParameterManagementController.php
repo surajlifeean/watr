@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Parameter;
+use Session;
+
 
 class ParameterManagementController extends Controller
 {
@@ -14,7 +17,8 @@ class ParameterManagementController extends Controller
      */
     public function index()
     {
-        //
+        $parameter=Parameter::all();
+        return view('admin.parameter.index')->withParameters($parameter);
     }
 
     /**
@@ -24,7 +28,7 @@ class ParameterManagementController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.parameter.create');
     }
 
     /**
@@ -35,7 +39,20 @@ class ParameterManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+     
+        $parameter=new Parameter;
+
+        $variable=$request->toArray();
+        foreach ($variable as $key => $value) {
+        if($key!='_token')
+        $parameter->$key=$value;
+        }
+
+        $parameter->save();        
+
+        session::flash('success', 'The Parameter Has Been Added Successfully!');
+        return redirect()->route('parameter.index');
+
     }
 
     /**
@@ -57,7 +74,9 @@ class ParameterManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $parameter=Parameter::find($id);
+        return view("admin.parameter.edit")->withParameter($parameter);
+    
     }
 
     /**
@@ -69,7 +88,20 @@ class ParameterManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $parameter=Parameter::find($id);
+
+        $variable=$request->toArray();
+        foreach ($variable as $key => $value) {
+           if($key!='_token' & $key!='_method')
+            $parameter->$key=$value;
+        }
+
+        $parameter->save();        
+
+        session::flash('success', 'The Parameters Has Been Updated Successfully!');
+        return redirect()->route('parameter.index');
+
     }
 
     /**
@@ -82,4 +114,15 @@ class ParameterManagementController extends Controller
     {
         //
     }
+    
+    public function delete($id,Request $request)
+    {   
+        $parameter=Parameter::find($id);
+        $parameter->delete();
+        $request->session()->flash('success', 'The Parameter Has Been Deleted.');
+        return redirect('/admin/parameter');
+        
+        // dd($request); 
+    }
+
 }
