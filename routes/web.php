@@ -42,6 +42,9 @@ Route::prefix('admin')->group(function() {
 	Route::post('/login','Auth\AdminLoginController@login')->name('admin.login.submit');
 	Route::get('/', 'AdminController@index')->name('admin');
     Route::resource('parameter', 'Admin\ParameterManagementController');
+    Route::resource('test', 'Admin\TestManagementController');
     Route::get('parameter/delete/{id}', array('as' => 'admin.parameter.delete', 'uses' => 'Admin\ParameterManagementController@delete'));
+    Route::get('test/delete/{id}', array('as' => 'admin.test.delete', 'uses' => 'Admin\TestManagementController@delete'));
+
 
 });

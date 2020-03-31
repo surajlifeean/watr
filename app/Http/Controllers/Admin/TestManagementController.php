@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Parameter;
+use App\Test;
+use Session;
 
 class TestManagementController extends Controller
 {
@@ -14,7 +17,8 @@ class TestManagementController extends Controller
      */
     public function index()
     {
-        //
+        $tests=Test::all();
+        return view('admin.test.index')->withTests($tests);
     }
 
     /**
@@ -24,7 +28,10 @@ class TestManagementController extends Controller
      */
     public function create()
     {
-        //
+        $parameters=Parameter::where('status','A')->pluck('id','name');
+        // dd($parameters);
+
+        return view('admin.test.create')->withParameters($parameters);
     }
 
     /**
@@ -35,7 +42,20 @@ class TestManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $test=new Test;
+
+        $variable=$request->toArray();
+        foreach ($variable as $key => $value) {
+        if($key!='_token' & $key!='parameters')
+        $test->$key=$value;
+        }
+
+        $test->save();
+
+        $test->parameters()->sync($request->parameters,false);        
+
+        session::flash('success', 'The Test Has Been Added Successfully!');
+        return redirect()->route('test.index');
     }
 
     /**
@@ -82,4 +102,15 @@ class TestManagementController extends Controller
     {
         //
     }
+
+    public function delete($id,Request $request)
+    {   
+        $test=Test::find($id);
+        $test->delete();
+        $request->session()->flash('success', 'The Test Has Been Deleted.');
+        return redirect('/admin/test');
+        
+        // dd($request); 
+    }
+
 }

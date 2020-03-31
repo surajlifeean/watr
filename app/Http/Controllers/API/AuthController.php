@@ -40,7 +40,7 @@ class AuthController extends ResponseController
 		
 		if(!isset($otp))
 			{
-			$error['message'] = "No, OTP entered";
+			$error['message'] = "Sorry, OTP did not match";
 			$error['ack'] = 0;
             return $this->sendResponse($error, 200); 
 			}
