@@ -67,6 +67,20 @@
         Addons
       </div>
  -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>User</span>
+        </a>
+        <div id="collapseUsers" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <a class="collapse-item" href="{{route('parameter.create')}}">Add</a> -->
+            <a class="collapse-item" href="{{route('admin.user.index')}}">List</a>
+        </div>
+       </div>
+     </li>
+
+
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
@@ -112,7 +126,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="{{route('contact.index')}}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Contacts</span></a>
       </li>
