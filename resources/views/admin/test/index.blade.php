@@ -3,6 +3,16 @@
  @section('stylesheets')
 
  	  <link href="{{asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <style type="text/css">
+
+    .label {
+      color: white;
+      padding: 3px;
+    }
+
+    .label-primary {background-color: #4CAF50;}       
+    
+    </style>
 
  @endsection
 
@@ -33,6 +43,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>Typ</th>
                       <th>Name</th>
                       <th>Specific Instructions</th>
                       <th>Parameters</th>
@@ -46,6 +57,7 @@
                   <tfoot>
                     <tr>
                       <!-- <th>Image</th> -->
+                      <th>Typ</th>
                       <th>Name</th>
                       <th>Specific Instructions</th>
                       <th>Parameters</th>
@@ -61,6 +73,7 @@
 
                   	@foreach($tests as $test)
                   	 <tr>
+                      <td>{{$test->type}}</td>
                       <td>{{$test->name}}</td>
                       <td>{{$test->instructions}}</td>
 
@@ -74,11 +87,18 @@
                         
                       @endphp
 
-                      <td>{{$pname}}</td>
+                      <td>
+
+                        @foreach($test->parameters as $param)
+
+                          <span class='label label-primary'>{{$param->name}}</span>
+                        @endforeach
+
+                      </td>
                       <td>{{$total_cost}}</td>
 
                       <td>{{$test->status=='A'?'Active':'Inactive'}}</td>
-                      <td>{{$test->created_at}}</td>
+                      <td>{{$test->created_at->format('d-m-Y')}}</td>
                       <td>
                       <a href="{{route('test.edit',$test->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
 <!--                       <a href="{{route('test.show',$test->id)}}" data-toggle="tooltip" title="test Details" class="btn">

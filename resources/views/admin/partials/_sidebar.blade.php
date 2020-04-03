@@ -89,14 +89,14 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDoctor" aria-expanded="true" aria-controls="collapseDoctor">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTest" aria-expanded="true" aria-controls="collapseTest">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Doctor</span>
+          <span>Test</span>
         </a>
-        <div id="collapseDoctor" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseTest" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="">Add</a>
-            <a class="collapse-item" href="">List</a>
+            <a class="collapse-item" href="{{route('test.create')}}">Add</a>
+            <a class="collapse-item" href="{{route('test.index')}}">List</a>
             <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
 
  <!--            <div class="collapse-divider"></div>

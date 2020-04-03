@@ -17,7 +17,8 @@ class TestManagementController extends Controller
      */
     public function index()
     {
-        $tests=Test::all();
+        $tests=Test::orderby('type','asc')->get();
+    
         return view('admin.test.index')->withTests($tests);
     }
 
@@ -77,7 +78,10 @@ class TestManagementController extends Controller
      */
     public function edit($id)
     {
-        //
+        $test=Test::find($id);
+        $parameters=Parameter::where('status','A')->pluck('id','name');
+        return view("admin.test.edit")->withTest($test)->withParameters($parameters);
+  
     }
 
     /**
@@ -89,7 +93,20 @@ class TestManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $test=Test::find($id);
+
+        $variable=$request->toArray();
+        foreach ($variable as $key => $value) {
+        if($key!='_token' & $key!='parameters' & $key!='_method')
+        $test->$key=$value;
+        }
+
+        $test->save();
+
+        $test->parameters()->sync($request->parameters);        
+
+        session::flash('success', 'The Test Has Been updated Successfully!');
+        return redirect()->route('test.index');
     }
 
     /**

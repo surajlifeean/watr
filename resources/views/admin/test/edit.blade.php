@@ -21,25 +21,24 @@
                         <span class="h4" style="margin-left:12px;">Add</span>
                       </header>
 
-                      {{Form::open(['route' => 'test.store','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+                      {{Form::model($test,['route' =>['test.update',$test->id],'method'=>'PUT','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+
                       <div class="panel-body">                   
                          <div class="form-group">
                           <label class="col-sm-3 control-label">Test Name</label>
                           <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control"  data-required="true" placeholder="Name of test" required>   
+                            <input type="text" name="name" class="form-control"  data-required="true" placeholder="Name of test" value="{{$test->name}}" required>   
                           </div>
                         </div>
                          <div class="line line-dashed line-lg pull-in"></div>
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Specific Instructions</label>
                           <div class="col-sm-9">
-                            <textarea id="summernote" name="instructions" class="form-control" required></textarea>    
+                            <textarea id="summernote" name="instructions" class="form-control" required>{{$test->instructions}}</textarea>    
                           </div>
                         </div>
                         <label class="col-sm-3 control-label">Parameters</label>
-                          <!-- <div class="col-sm-9">
-                            <input type="text" name="parameters" class="form-control"  data-required="true" placeholder="Select Parameters" required>   
-                        </div> -->
+                         
                         <select class="js-example-basic-multiple form-control" name="parameters[]" multiple="multiple">
                           @foreach($parameters as $key=>$value)
                           <option value="{{$value}}">{{$key}}</option>
@@ -53,8 +52,8 @@
                           <div class="col-sm-9">
                             <select name="status" required>
                          <option value="">select</option>
-                         <option value="A">Active</option>
-                         <option value="I">Inactive</option>
+                           <option value="A" {{$test->status=='A'?'selected':''}}>Active</option>
+                           <option value="I" {{$test->status=='I'?'selected':''}}>Inactive</option>
                            </select>
 
                           </div>
@@ -66,14 +65,13 @@
                           <div class="col-sm-9">
                             <select name="type" required>
                          <option value="">select</option>
-                         <option value="D">Default</option>
-                         <option value="O">Others</option>
-                         <option value="I">Individual</option>
+                           <option value="D" {{$test->status=='D'?'selected':''}}>Default</option>
+                           <option value="O" {{$test->status=='O'?'selected':''}}>Others</option>
+                           <option value="I" {{$test->status=='I'?'selected':''}}>Individual</option>
                            </select>
 
                           </div>
                          </div>
-
                     
               
                   <footer class="panel-footer text-right bg-light lter">
@@ -106,6 +104,10 @@
 <script>
   $(document).ready(function() {
     $('.js-example-basic-multiple').select2();
+    // $('.js-example-basic-multiple').val(['1', '2']);
+    $('.js-example-basic-multiple').val({!! json_encode($test->parameters()->allRelatedIds())!!});
+
+    $('.js-example-basic-multiple').trigger('change');
 });
 
 </script>
