@@ -22,16 +22,17 @@ class TestController extends Controller
 			$test=$test->parameters;
 
 		}
-		$tests['ack']=1;
+		// return response()->json($tests, '200');
+		
+		$res['tests']=array($tests);		
+		$res['ack']=1;
 		// dd($tests);
 		if(!$tests){
 		$error['message'] = "Something Went Wrong";
 		$error['ack'] = 0;
 		return response()->json($error, '200');
 		}
-		return response()->json($tests, '200');
+		return response()->json($res, '200');
 		// return $this->sendResponse($test);
-		}
-
-   
+		}   
 }
