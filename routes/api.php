@@ -26,6 +26,8 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::get('logout', 'API\AuthController@logout');
         Route::get('getuser', 'API\AuthController@getUser');
         Route::get('getalltests', 'API\TestController@getAllTests');
+		Route::post('/addtocart','API\CartController@addtocart');
+        
     });
 }); 
 

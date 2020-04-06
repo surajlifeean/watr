@@ -10,4 +10,10 @@ class Test extends Model
 
     	return $this->belongsToMany(Parameter::class);
     }
+
+        public function carts(){
+
+    	return $this->belongsToMany(Cart::class);
+    }
+
 }

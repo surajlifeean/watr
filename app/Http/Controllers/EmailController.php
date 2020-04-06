@@ -11,7 +11,6 @@ use DateTime;
 class EmailController extends Controller
 {
     //
-
     public function sendOtp($email)
     {
     	$status=0;

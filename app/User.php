@@ -38,8 +38,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function details(){
+    public function carts(){
 
-        return $this->hasOne(Details::class);
+        return $this->hasOne(Cart::class);
     }
 }
