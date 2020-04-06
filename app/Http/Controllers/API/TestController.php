@@ -18,12 +18,17 @@ class TestController extends Controller
 		{
 
 		$tests=Test::where('status','A')->withCount('parameters')->get();
-		foreach ($tests as $test) {
+		foreach ($tests as $key=>$test) {
 			$test=$test->parameters;
-
+			$sum=0;
+			foreach ($test as $param) {
+				$sum=$sum+$param->cost;
+			}
+			// echo($key.'-'.$test);
+			$tests[$key]['total_cost']=$sum;
 		}
 		// return response()->json($tests, '200');
-		
+		// dd("hi");
 		$res['tests']=array($tests);		
 		$res['ack']=1;
 		// dd($tests);

@@ -45,4 +45,36 @@ class CartController extends Controller
 			return response()->json($error, '200');
 		}
     }
+      public function cartItems(Request $request)
+    {
+    	#fetch user details using the token
+    	$carttests=$request->user()->carts->tests;
+    	#check if the user id is in cart table 
+    	// $userhasacart=Cart::where('user_id',$user_id)->first();
+    	#dd($user_id);
+    	if(isset($carttests)){
+    	$billamount=0;
+    	foreach ($carttests as $key=>$test) {
+			$test=$test->parameters;
+			$sum=0;
+			foreach ($test as $param) {
+				$sum=$sum+$param->cost;
+			}
+			// echo($key.'-'.$test);
+			$carttests[$key]['test_cost']=$sum;
+			$billamount=$billamount+$sum;
+		}
+			
+			$success['message'] = "Cart Tests Fetched";
+			$success['ack'] = 1;
+			$success['tests']=$carttests;
+			$success['billamount']=$billamount;
+			return response()->json($success, '200');
+		}
+		else{
+			$error['message'] = "Something Went Wrong";
+			$error['ack'] = 0;
+			return response()->json($error, '200');
+		}
+    }
 }

@@ -27,7 +27,8 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::get('getuser', 'API\AuthController@getUser');
         Route::get('getalltests', 'API\TestController@getAllTests');
 		Route::post('/addtocart','API\CartController@addtocart');
-        
+		Route::get('/cartitems','API\CartController@cartItems');
+
     });
 }); 
 
