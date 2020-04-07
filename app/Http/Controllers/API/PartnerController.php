@@ -68,7 +68,7 @@ class PartnerController extends Controller
 	   else{
 	   		$success['message'] = "Something went wrong, Please try again";
 			$success['ack'] = 0;
-			return response()->json($success, '200');
+			return response()->json($success, '400');
 
 	   }
 
