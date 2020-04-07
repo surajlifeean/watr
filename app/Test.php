@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Test extends Model
 {
-    public function parameters(){
+        public function parameters(){
 
     	return $this->belongsToMany(Parameter::class);
     }
@@ -14,6 +14,10 @@ class Test extends Model
         public function carts(){
 
     	return $this->belongsToMany(Cart::class);
+    }
+        public function partners(){
+
+    	return $this->belongsToMany(Partner::class);
     }
 
 }
