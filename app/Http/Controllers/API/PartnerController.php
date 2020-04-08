@@ -54,7 +54,7 @@ class PartnerController extends Controller
    	   $partner->chequefile=$filename;
 
 	   $partner->save();
-	   $data=[2=>['cost'=>0],7=>['cost'=>6]];
+	   // $data=[2=>['cost'=>0],7=>['cost'=>6]];
 	   // dd($data);
 	   $list=[];
 	   foreach ($ob['tests'] as $key => $value) {
