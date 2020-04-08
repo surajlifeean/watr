@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Partner extends Model
 {
-        public function tests(){
+        public function parameters(){
 
-    	return $this->belongsToMany(Parameter::class);
+    	return $this->belongsToMany(Parameter::class)->withPivot('cost');
     }
 }

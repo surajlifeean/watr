@@ -29,17 +29,17 @@ class CreatePartnersTable extends Migration
             $table->timestamps();
         });
         
-        Schema::create('partner_test', function (Blueprint $table) {
+        Schema::create('parameter_partner', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('partner_id');
-            $table->unsignedBigInteger('test_id');
+            $table->unsignedBigInteger('parameter_id');
             $table->string('cost');
             $table->timestamps();
 
-            $table->unique(['test_id','partner_id']);
+            $table->unique(['parameter_id','partner_id']);
 
             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
-            $table->foreign('test_id')->references('id')->on('tests')->onDelete('cascade');
+            $table->foreign('parameter_id')->references('id')->on('parameters')->onDelete('cascade');
         });
 
     }

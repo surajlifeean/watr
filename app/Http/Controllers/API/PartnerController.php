@@ -26,6 +26,18 @@ class PartnerController extends Controller
 	$partner->panno=$ob['panno'];
 	$partner->gstno=$ob['gstno'];
 	$partner->status='A';
+
+	$checkPartnerExists=Partner::where('gstno',$partner->gstno)->first();
+			if(isset($checkPartnerExists)){
+		
+			$response = [
+		        'message' =>'You are already registered on '.date('d-m-Y',strtotime($checkPartnerExists->created_at)).'. We will reachout shortly',
+		        'ack'=>0
+		    ];
+		    return response()->json($response, '200');
+
+		}
+
 	##block the entry and show partner exists for GST or Pan or Contact no
 	  $file=$request->file('panfile');
       $filename='pan-'.rand().time().$file->getClientOriginalName();
@@ -60,7 +72,7 @@ class PartnerController extends Controller
 	   foreach ($ob['tests'] as $key => $value) {
 	   	$list[$value['id']]=['cost'=>$value['cost']];
 	   }
-	   if($partner->tests()->sync($list)){
+	   if($partner->parameters()->sync($list)){
 	   		$success['message'] = "Details Submitted! We will get back to you soon";
 			$success['ack'] = 1;
 			return response()->json($success, '400');

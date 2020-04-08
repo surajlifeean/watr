@@ -15,9 +15,6 @@ class Test extends Model
 
     	return $this->belongsToMany(Cart::class);
     }
-        public function partners(){
-
-    	return $this->belongsToMany(Partner::class);
-    }
+     
 
 }

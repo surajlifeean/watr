@@ -81,14 +81,36 @@
                         <a href="{{route('partner.show',$partner->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
                       <i class="fas fa-eye"></i>
                       </a>
+<!-- 
+                        <a href="{{route('partner.edit',$partner->id)}}"  class="btn"><i class="fas fa-pen"></i></a> -->
 
-                        <a href="{{route('partner.edit',$partner->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
-
-                        @if($partner->status=='I')
+<!--                         @if($partner->status=='I')
                         <a href=""  class="btn"><i class="fas fa-lock"></i></a>
                         @else
                         <a href=""  class="btn"><i class="fas fa-unlock"></i></a>
                         @endif
+ -->
+
+                        <button class="btn btn-primary btn-rounded formConfirm" data-form="#frmStatus-{{$partner->id}}" data-title="Status Change" data-message="Are you sure, you want to change the status ?" >
+                                        <?php if($partner->status == 'I'){ ?>
+                                            <i title="Inactive" style="margin-right: 0;" class="fa fa-lock" aria-hidden="true"></i>
+                                        <?php } else { ?>
+                                            <i title="Active" style="margin-right: 0;" class="fa fa-unlock" aria-hidden="true"></i>
+                                        <?php } ?>
+                                    </button>
+                                    {!! Form::open(array(
+                                            'url' => route('admin.partner.statuschange', array($partner->id)),
+                                            'method' => 'get',
+                                            'style' => 'display:none',
+                                            'id' => 'frmStatus-' . $partner->id,
+                                            'status' => 'frmStatus-' . $partner->status,
+                                        ))
+                                    !!}
+                                    {!! Form::submit('Submit') !!}
+                                    {!! Form::close() !!}
+
+
+
                       </td>
 
                       </tr>

@@ -10,4 +10,9 @@ class Parameter extends Model
 
     	return $this->belongsToMany(Test::class);
     }
+
+       public function partners(){
+
+    	return $this->belongsToMany(Partner::class);
+    }
 }

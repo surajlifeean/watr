@@ -82,10 +82,15 @@
                          <option value="">select</option>
                          <option value="A" {{$partner->status=='A'?'selected':''}}>Active</option>
                          <option value="I" {{$partner->status=='I'?'selected':''}}>Inactive</option>
+                        
+
+
                            </select>
 
                           </div>
                          </div>
+              
+              <label class="col-sm-3 control-label">Partner Test Parameter Costs</label>
               
               <div class="table-responsive">
                     <table class="table">
@@ -93,16 +98,17 @@
                       <td>
                       <b>Parameters Name</b>
                       </td>
-                      <td></td>
-                      <td>john@example.com</td>
+                      <td><b>Partner Cost</b></td>
+                      <td><b>Watr Cost</b></td>
                       </tr>
-                    @foreach($partner->tests as $test)
+                    @foreach($partner->parameters as $test)
                           <tr>
                             <td>
                             {{$test->name}}
                             </td>
-                            <td>Doe</td>
-                            <td>john@example.com</td>
+                            <td>{{$test->pivot->cost}}</td>
+
+                            <td>{{$test->cost}}</td>
                           <tr>
                     @endforeach
                   

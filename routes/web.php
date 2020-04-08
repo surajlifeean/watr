@@ -54,4 +54,6 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('partner', 'Admin\PartnerController');
 
+Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
+
 });

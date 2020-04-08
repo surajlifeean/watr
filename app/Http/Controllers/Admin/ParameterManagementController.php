@@ -125,4 +125,24 @@ class ParameterManagementController extends Controller
         // dd($request); 
     }
 
+     public function statuschange($id,Request $request)
+    {   //dd($id);
+        $partner =Partner::find($id);
+        if($partner->status == 'A'){
+            $partner->status = 'I';
+            if($partner->save()){
+                $request->session()->flash('success', 'Partner deactivated successfully.');
+                return redirect('/admin/partner');
+            }
+        } else {
+            $partner->status = 'A';
+            if($partner->save()){
+                $request->session()->flash('success', 'Partner activated successfully.');
+                return redirect('/admin/partner');
+            }
+        }
+    }
+
+
+
 }
