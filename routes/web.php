@@ -51,4 +51,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/user', 'Admin\UserManagementController@index')->name('admin.user.index');
 
     Route::resource('contact', 'Admin\ContactController');
+
+    Route::resource('partner', 'Admin\PartnerController');
+
 });

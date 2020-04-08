@@ -8,6 +8,6 @@ class Partner extends Model
 {
         public function tests(){
 
-    	return $this->belongsToMany(Test::class);
+    	return $this->belongsToMany(Parameter::class);
     }
 }
