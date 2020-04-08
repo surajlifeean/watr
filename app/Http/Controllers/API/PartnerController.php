@@ -63,12 +63,12 @@ class PartnerController extends Controller
 	   if($partner->tests()->sync($list)){
 	   		$success['message'] = "Details Submitted! We will get back to you soon";
 			$success['ack'] = 1;
-			return response()->json($success, '200');
+			return response()->json($success, '400');
 	   }
 	   else{
 	   		$success['message'] = "Something went wrong, Please try again";
 			$success['ack'] = 0;
-			return response()->json($success, '400');
+			return response()->json($success, '200');
 
 	   }
 
