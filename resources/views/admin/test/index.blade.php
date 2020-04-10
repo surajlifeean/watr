@@ -7,7 +7,7 @@
 
     .label {
       color: white;
-      padding: 3px;
+      /*padding: 3px;*/
     }
 
     .label-primary {background-color: #4CAF50;}       
@@ -91,7 +91,7 @@
 
                         @foreach($test->parameters as $param)
 
-                          <span class='label label-primary'>{{$param->name}}</span>
+                          <span class='label label-primary'>{{$param->name}}</span>|
                         @endforeach
 
                       </td>

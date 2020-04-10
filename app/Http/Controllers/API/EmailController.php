@@ -9,7 +9,7 @@ use Mail;
 use App\otp;
 use DateTime;
 use App\User;
-
+use App\Contact;
 
 class EmailController extends Controller
 {
@@ -89,4 +89,37 @@ class EmailController extends Controller
 			}
 
         }
+        public function contact(Request $request)
+       {
+       	// dd($request->request);
+
+			$contact=new Contact;
+
+			$variable=$request->toArray();
+			foreach ($variable as $key => $value) {
+			if($key!='_token')
+			$contact->$key=$value;
+			}
+
+			     
+		if ($contact->save()) {
+				$response = [
+				'message' =>'You Query Has Been Submitted Successfully',
+				'ack'=>1
+				];
+				return response()->json($response, '200');
+				}
+
+        else{
+				$response = [
+				'message' =>'Something Went Wrong',
+				'ack'=>0
+				];
+				return response()->json($response, '200');
+			}
+
+
+
+       }
+
 }

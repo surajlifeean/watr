@@ -29,6 +29,8 @@ Route::group([ 'prefix' => 'auth'], function (){
 		Route::post('/addtocart','API\CartController@addtocart');
 		Route::get('/cartitems','API\CartController@cartItems');
 		Route::post('/addpartner','API\PartnerController@addPartner');
+        Route::post('/contact', 'API\EmailController@contact');
+
     });
 }); 
 

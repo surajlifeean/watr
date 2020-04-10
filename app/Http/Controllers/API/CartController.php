@@ -47,6 +47,9 @@ class CartController extends Controller
     }
       public function cartItems(Request $request)
     {
+    	// dd($request->user()->id);
+    	$noCartUser=Cart::where('user_id',$request->user()->id)->first();
+    	if(isset($noCartUser)){
     	#fetch user details using the token
     	$carttests=$request->user()->carts->tests;
     	#check if the user id is in cart table 
@@ -76,5 +79,11 @@ class CartController extends Controller
 			$error['ack'] = 0;
 			return response()->json($error, '200');
 		}
+	}else{
+			$error['message'] = "No Items In Cart";
+			$error['ack'] = 0;
+			return response()->json($error, '200');
+	}
+
     }
 }
