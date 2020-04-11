@@ -100,6 +100,7 @@
                       </td>
                       <td><b>Partner Cost</b></td>
                       <td><b>Watr Cost</b></td>
+                      <td><b>Difference</b></td> 
                       </tr>
                     @foreach($partner->parameters as $test)
                           <tr>
@@ -109,6 +110,8 @@
                             <td>{{$test->pivot->cost}}</td>
 
                             <td>{{$test->cost}}</td>
+                      <td>{{$test->pivot->cost-$test->cost}}</td>
+
                           <tr>
                     @endforeach
                   

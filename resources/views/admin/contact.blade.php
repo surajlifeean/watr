@@ -36,7 +36,7 @@
                       <th>From</th>
                       <th>Email</th>
                       <th>Phone No</th>
-                      <th>Subject</th>
+                      <th>Message</th>
                       <th>Message Date</th>
                       <!-- <th>Salary</th> -->
                     </tr>
@@ -46,7 +46,7 @@
                       <th>From</th>
                       <th>Email</th>
                       <th>Phone No</th>
-                      <th>Subject</th>
+                      <th>Message</th>
                       <th>Message Date</th>
                       <!-- <th>Salary</th> -->
                     </tr>
@@ -57,7 +57,7 @@
                       <td>{{$contact->name}}</td>
                       <td>{{$contact->email}}</td>
                       <td>{{$contact->phone}}</td>
-                      <td>{{$contact->subject}}</td>
+                      <td>{{$contact->msg}}</td>
                       <td>{{$contact->created_at}}</td>
                     </tr>
                   	@endforeach

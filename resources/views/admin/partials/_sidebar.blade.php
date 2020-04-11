@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin')}}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -14,7 +14,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{route('admin')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -132,6 +132,21 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <a class="collapse-item" href="{{route('partner.create')}}">Add</a> -->
             <a class="collapse-item" href="{{route('partner.index')}}">List</a>
+            <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
+         </div>
+        </div>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseOrder">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Order</span>
+        </a>
+        <div id="collapseOrder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <a class="collapse-item" href="{{route('partner.create')}}">Add</a> -->
+            <a class="collapse-item" href="{{route('order.index')}}">List</a>
             <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
          </div>
         </div>

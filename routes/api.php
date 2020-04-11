@@ -30,7 +30,7 @@ Route::group([ 'prefix' => 'auth'], function (){
 		Route::get('/cartitems','API\CartController@cartItems');
 		Route::post('/addpartner','API\PartnerController@addPartner');
         Route::post('/contact', 'API\EmailController@contact');
-
+        Route::post('/placeorder', 'API\OrderController@placeOrder');
     });
 }); 
 
