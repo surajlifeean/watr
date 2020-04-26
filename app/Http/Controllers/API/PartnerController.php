@@ -7,12 +7,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Image;
 use App\Partner;
+use App\Parameter;
 
 
 class PartnerController extends Controller
 {
     public function addPartner(Request $request)
     {
+
+// dd($request);
+// return response()->json($request, '200');
 
 	foreach ($request->request as $key => $value) {
 	// echo $value;
@@ -83,6 +87,96 @@ class PartnerController extends Controller
 			return response()->json($success, '200');
 
 	   }
+
+    }
+
+    public function testfile(Request $request)
+    {
+
+  //       $destinationPath = public_path('images');
+
+		// $path = $request->file('chequefile')->move($destinationPath,'test.pdf');
+
+		// return response()->json($path,'200');
+			// foreach ($request->request as $key => $value) {
+	// echo $value;
+	// }      
+	// $partner=new Partner;
+	// $ob=json_decode($value, true);
+	// $partner->labname=$ob['labname'];
+	// $partner->contactperson=$ob['contactperson'];
+	// $partner->number=$ob['number'];
+	// $partner->designation=$ob['designation'];
+	// $partner->panno=$ob['panno'];
+	// $partner->gstno=$ob['gstno'];
+	// $partner->status='A';
+	// $partner->save();
+$response = array();
+// $upload_dir = 'public/images/';
+$upload_dir=public_path('images');
+$server_url = 'http://127.0.0.1/watr/';
+if($_FILES['avatar'])
+{
+    $avatar_name = $_FILES["avatar"]["name"];
+    $avatar_tmp_name = $_FILES["avatar"]["tmp_name"];
+    $error = $_FILES["avatar"]["error"];
+
+    if($error > 0){
+        $response = array(
+            "status" => "error",
+            "error" => true,
+            "message" => "Error uploading the file!"
+        );
+    }else 
+    {
+        $random_name = rand(1000,1000000)."-".$avatar_name;
+        $upload_name = $upload_dir.'/'.strtolower($random_name);
+        $upload_name = preg_replace('/\s+/', '-', $upload_name);
+
+                // "url" => $server_url."/".$upload_name
+
+        if(move_uploaded_file($avatar_tmp_name , $upload_name)) {
+            $response = array(
+                "status" => "success",
+                "error" => false,
+                "message" => "File uploaded successfully",
+                "url" => $upload_name
+              );
+        }else
+        {
+            $response = array(
+                "status" => "error",
+                "error" => true,
+                "message" => "Error uploading the file!"
+            );
+        }
+    }    
+
+}else{
+    $response = array(
+        "status" => "error",
+        "error" => true,
+        "message" => "No file was sent!"
+    );
+}
+
+echo json_encode($response);
+
+
+    }
+
+     public function allParameters(Request $request)
+    {
+		// dd("hi");
+    	$parameters=Parameter::select('id','name')->get();
+		if(!isset($parameters)){
+		$error['message'] = "Something Went Wrong";
+		$error['ack'] = 0;
+		return response()->json($error, '200');
+		}
+		$param['ack']=1;
+		$param['parameters']=$parameters;
+		return response()->json($param,'200');
 
     }
 

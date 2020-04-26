@@ -20,6 +20,7 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('signup', 'API\AuthController@signup');
         Route::get('getalluser', 'API\AuthController@getAllUser');
         Route::get('/send-otp/{email}', 'API\EmailController@sendOtp');
+        Route::get('test-centers/{state}', 'API\AuthController@gettestcenters');        
 
     });
     Route::group(['middleware' => 'auth:api'], function() {
@@ -29,8 +30,11 @@ Route::group([ 'prefix' => 'auth'], function (){
 		Route::post('/addtocart','API\CartController@addtocart');
 		Route::get('/cartitems','API\CartController@cartItems');
 		Route::post('/addpartner','API\PartnerController@addPartner');
+		Route::get('/allparameters','API\PartnerController@allParameters');
         Route::post('/contact', 'API\EmailController@contact');
         Route::post('/placeorder', 'API\OrderController@placeOrder');
+        Route::post('/testfile', 'API\PartnerController@testfile');
+
     });
 }); 
 

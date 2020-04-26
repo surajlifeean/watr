@@ -11,6 +11,8 @@ use App\User;
 use Validator;
 use App\otp;
 use App\Details;
+use App\vrdl;
+
 
 class AuthController extends ResponseController
 {
@@ -156,6 +158,19 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
         return $this->sendResponse($user);
+    }
+
+
+    public function gettestcenters($state){
+
+        $testcenter=vrdl::where('state','LIKE',"%{$state}%")->get();
+        $test['center']=$testcenter;
+        if(count($testcenter)==0)
+            $test['status']='No Centers Availble in Records';
+        else
+            $test['status']='Success';
+        return $this->sendResponse($test);
+
     }
 
 

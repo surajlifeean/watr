@@ -28,6 +28,8 @@ class OrderController extends Controller
 			$order->user_id=$request->user()->id;
 			
 			if($order->save()){
+			$order->order_id=date('dmY',strtotime($order->created_at)).$order->id;
+			$order->save();
 			$order->tests()->sync($tests);
 			$success['message'] = "Your Order Has Been Placed";
 			$success['ack'] = 1;
