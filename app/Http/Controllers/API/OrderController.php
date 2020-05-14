@@ -33,6 +33,7 @@ class OrderController extends Controller
 			$order->tests()->sync($tests);
 			$success['message'] = "Your Order Has Been Placed";
 			$success['ack'] = 1;
+			$success['order_id']=$order->order_id;
 			return response()->json($success, '200');
 			}
 			else{
@@ -41,5 +42,36 @@ class OrderController extends Controller
 			return response()->json($success, '200');
 			}
 		}   
+
+		 public function OrderListing(Request $request)
+    {
+    	// dd($request->user()->id);
+    	$orders=Order::where('user_id',$request->user()->id)->orderby('created_at','Desc')->get();
+    	$orderList=[];
+    	$tempList=[];
+
+    	// dd($request->user()->id)
+
+    	foreach ($orders as $key => $order) {
+    		# code...
+    	
+    	$order_id=$order->order_id;
+    	$booking_date=date_format($order->created_at,'d/m/Y');
+    	$order_status=$order->order_status;
+    	$bill_amount=$order->billamt;
+    	$tests_booked=$order->tests->pluck('name');
+    	// $orderList=['order_id'=>$order_id,'booking_date'=>$booking_date,'order_status'=>$order_status,'bill_amount'=>$bill_amount,'tests_booked'=>$tests_booked];
+    	$var=['order_id'=>$order_id,'booking_date'=>$booking_date,'order_status'=>$order_status,'bill_amount'=>$bill_amount,'tests_booked'=>$tests_booked];
+    	array_push($tempList, $var);
+
+    }
+
+    	$orderList['orders']=$tempList;
+    	$orderList['ack']=1;
+
+
+    	return response()->json($orderList, '200');
+    }
+
 
 }

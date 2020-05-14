@@ -54,9 +54,24 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('partner', 'Admin\PartnerController');
 
+    Route::resource('assistance', 'Admin\AssistanceController');
+
+
     Route::resource('order', 'Admin\OrderController');
 
 
 Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
 
+Route::get('assistance/statuschange/{id}', array('as' => 'admin.assistance.statuschange', 'uses' => 'Admin\AssistanceController@statuschange'));
+
+});
+
+Route::prefix('member')->group(function() {
+
+	Route::get('/login', 'Auth\MemberLoginController@showLoginForm')->name('partner.login');
+	Route::post('/login','Auth\MemberLoginController@login')->name('member.login.submit');
+	Route::get('/','MemberController@index')->name('member');
+ //    Route::resource('parameter', 'Admin\ParameterManagementController');
+ //    Route::resource('test', 'Admin\TestManagementController');
+   
 });

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 
-class AdminController extends Controller
+class MemberController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -15,7 +15,7 @@ class AdminController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        $this->middleware('auth:member');
     }
 
     /**
@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // dd(Auth());
+         // dd(Auth());
         return view('admin.home');
     }
 }

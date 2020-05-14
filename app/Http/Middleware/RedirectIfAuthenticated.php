@@ -21,6 +21,12 @@ class RedirectIfAuthenticated
         //     return redirect('/home');
         // }
 
+        if ($guard == "member" && Auth::guard($guard)->check()) {
+        // dd($request);
+
+                return redirect('/member');
+            }
+
          if ($guard == "admin" && Auth::guard($guard)->check()) {
                 return redirect('/admin');
             }

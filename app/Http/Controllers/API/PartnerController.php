@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Image;
 use App\Partner;
 use App\Parameter;
-
+use App\PartnerAssistant;
 
 class PartnerController extends Controller
 {
@@ -179,6 +179,33 @@ echo json_encode($response);
 		return response()->json($param,'200');
 
     }
+
+
+    public function assistance(Request $request)
+		{
+
+			$assistance=new PartnerAssistant;
+			// $assistance=$request->tests;
+			$variable=$request->toArray();
+			// dd($variable['tests']);
+			// dd($variable['pickup_time']);
+			foreach ($variable as $key => $value) {
+			if($key!='_token')
+			$assistance->$key=$value;
+			}
+
+			if($assistance->save()){
+				$success['message'] = "You Details Are Posted! We We Get Back To You Shortly.";
+				$success['ack'] = 1;
+				return response()->json($success, '200');
+			}
+			else{
+				$success['message'] = "Something Went Wrong";
+				$success['ack'] = 0;
+				return response()->json($success, '200');
+			}
+		} 
+
 
 }
 	

@@ -163,7 +163,7 @@ class AuthController extends ResponseController
 
     public function gettestcenters($state){
 
-        $testcenter=vrdl::where('state','LIKE',"%{$state}%")->get();
+        $testcenter=vrdl::where('state','LIKE',"%{$state}%")->orWhere('name','LIKE',"%{$state}%")->get();
         $test['center']=$testcenter;
         if(count($testcenter)==0)
             $test['status']='No Centers Availble in Records';
@@ -173,5 +173,43 @@ class AuthController extends ResponseController
 
     }
 
+    public function Profile(Request $request)
+    {
+        //$id = $request->user()->id;
+        $id = $request->user()->id;
+        // dd($id);
+        $user = User::find($id);
+        $user->name=$request['name'];
+        $user->email=$request['email'];
+        $user->number=$request['number'];
+        $user->dob=$request['dob'];
+        $user->gender=$request['gender'];
+        $user->state=$request['state'];
+        $user->city=$request['city'];
+        $user->address=$request['address'];
+        $user->pincode=$request['pincode'];
+
+        if($user->save()){
+            $success['ack'] = 1;
+            $success['name'] = $user->name;
+            $success['email'] = $user->email;
+            $success['number'] = $user->number;
+            $success['dob'] = $user->dob;
+            $success['gender'] = $user->gender;
+            $success['state'] = $user->state;
+            $success['city'] = $user->city;
+            $success['address'] = $user->address;
+            $success['pincode'] = $user->pincode;
+            $success['message'] = "Details Updated";
+
+
+            return $this->sendResponse($success);
+        }
+        else{
+            $error['message'] = "Sorry Something Went Wrong";
+            $error['ack']="0";
+            return $this->sendResponse($error);
+        }
+    }
 
 }
