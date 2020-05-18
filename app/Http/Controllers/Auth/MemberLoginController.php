@@ -9,8 +9,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class MemberLoginController extends Controller
 {
-
-
 	public function __construct()
     {
         $this->middleware('guest:member');

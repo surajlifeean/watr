@@ -9,6 +9,7 @@ use Image;
 use App\Partner;
 use App\Parameter;
 use App\PartnerAssistant;
+use DB;
 
 class PartnerController extends Controller
 {
@@ -30,6 +31,10 @@ class PartnerController extends Controller
 	$partner->panno=$ob['panno'];
 	$partner->gstno=$ob['gstno'];
 	$partner->status='A';
+	$partner->address=$ob['address'];
+	$partner->pincode=$ob['pincode'];
+	$partner->city=$ob['city'];
+	$partner->state=$ob['state'];
 
 	$checkPartnerExists=Partner::where('gstno',$partner->gstno)->first();
 			if(isset($checkPartnerExists)){
@@ -165,7 +170,7 @@ echo json_encode($response);
 
     }
 
-     public function allParameters(Request $request)
+    public function allParameters(Request $request)
     {
 		// dd("hi");
     	$parameters=Parameter::select('id','name')->get();
@@ -204,7 +209,20 @@ echo json_encode($response);
 				$success['ack'] = 0;
 				return response()->json($success, '200');
 			}
-		} 
+		}
+
+	public function nearestLabs(Request $request)
+		{
+			$pincode=$request['pincode'];
+			$dictrictCode=substr($pincode,0,3);
+			$nearestLabs=Partner::select('labname',DB::raw("CONCAT(address,',',city,',',pincode,',',state) AS complete_address"))->where([
+				['pincode','like',"%{$dictrictCode}%"],
+				['status','A']
+			])->get();
+			$response['labs']=$nearestLabs;
+			$response['ack']=1;
+			return response()->json($response,'200');
+		}
 
 
 }
