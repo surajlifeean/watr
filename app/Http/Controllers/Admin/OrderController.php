@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Order;
 use Session;
-
+use App\Partner;
 
 class OrderController extends Controller
 {
@@ -51,8 +51,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-                $order=Order::find($id);
-        return view('admin.order.show')->withOrder($order);
+        $order=Order::find($id);
+        $partner=Partner::get();
+        return view('admin.order.show')->withOrder($order)->withPartners($partner);
     }
 
     /**
@@ -78,8 +79,9 @@ class OrderController extends Controller
         $order=Order::find($id);
         $order->order_status=$request->status;
         $order->save();
+        $order->partners()->sync($request->partner);
         session::flash('success', 'Order Status Has Been Updated Successfully!');
-        return redirect()->route('order.show',$id);
+        return redirect()->route('order.index');
 
         // return view('admin.order.show')->withOrder($order);
     }

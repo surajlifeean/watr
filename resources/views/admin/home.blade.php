@@ -1,6 +1,19 @@
     
  @extends('admin.adminmain')
+ @if(Auth::guard('admin')->check())
+
+
  @section('title',"Admin")
+  
+@endif
+
+@if(Auth::guard('member')->check())
+
+
+ @section('title',"Partner")
+  
+@endif
+
  @section('content')
 
         <div class="container-fluid">

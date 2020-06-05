@@ -35,6 +35,9 @@ class PartnerController extends Controller
 	$partner->pincode=$ob['pincode'];
 	$partner->city=$ob['city'];
 	$partner->state=$ob['state'];
+	$partner->long=$ob['long'];
+	$partner->lat=$ob['lat'];
+
 
 	$checkPartnerExists=Partner::where('gstno',$partner->gstno)->first();
 			if(isset($checkPartnerExists)){
@@ -213,6 +216,8 @@ echo json_encode($response);
 
 	public function nearestLabs(Request $request)
 		{
+			$lat = $request->lat;
+			$long = $request->long;
 			$pincode=$request['pincode'];
 			$dictrictCode=substr($pincode,0,3);
 			$nearestLabs=Partner::select('labname',DB::raw("CONCAT(address,',',city,',',pincode,',',state) AS complete_address"))->where([

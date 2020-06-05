@@ -123,6 +123,22 @@
           <span>Contacts</span></a>
       </li>
 
+@elseif(Auth::guard('member')->check())
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseOrder">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Order</span>
+        </a>
+        <div id="collapseOrder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <a class="collapse-item" href="{{route('partner.create')}}">Add</a> -->
+            <a class="collapse-item" href="{{route('order.index')}}">List</a>
+            <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
+         </div>
+        </div>
+      </li>
+
 @endif
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

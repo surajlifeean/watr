@@ -56,8 +56,9 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('assistance', 'Admin\AssistanceController');
 
-
     Route::resource('order', 'Admin\OrderController');
+
+Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
 
 Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
@@ -71,6 +72,9 @@ Route::prefix('member')->group(function() {
 	Route::get('/login', 'Auth\MemberLoginController@showLoginForm')->name('partner.login');
 	Route::post('/login','Auth\MemberLoginController@login')->name('member.login.submit');
 	Route::get('/','MemberController@index')->name('member');
+    Route::post('/logout','Auth\MemberLoginController@logout')->name('member.logout');
+    Route::resource('order', 'Member\OrderController');
+
  //    Route::resource('parameter', 'Admin\ParameterManagementController');
  //    Route::resource('test', 'Admin\TestManagementController');
    

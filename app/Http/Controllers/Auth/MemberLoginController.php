@@ -11,7 +11,7 @@ class MemberLoginController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('guest:member');
+        $this->middleware('guest:member',['except'=>['logout']]);
     }    
     public function showLoginForm()
     {
@@ -41,5 +41,11 @@ class MemberLoginController extends Controller
 
     		return redirect()->back()->withInput($request->only('email','remember'));
     	//not successfull redirect back to login with form data
+    }
+
+        public function logout(Request $request)
+    {
+        Auth::guard('member')->logout();
+        return redirect('/member/login');
     }
 }

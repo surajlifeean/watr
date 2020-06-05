@@ -142,10 +142,11 @@
 <!--                       <td><b>order Cost</b></td>
                       <td><b>Watr Cost</b></td> -->
                       </tr>
+                    @php $cnt=1 @endphp
                     @foreach($order->tests as $test)
                           <tr>
                             <td>
-                            {{$test->name}}
+                            {{$cnt++.'>'.$test->name}}
                             </td>
 <!--                             <td></td>
 
@@ -156,6 +157,24 @@
                 </table>
               </div>
                     
+                  <div class="form-group">
+                          <label class="col-sm-3 control-label">Test Assingment</label>
+                          <div class="col-sm-9">
+                              
+                              <select name="partner" required>
+                                  <option value="">Select Partner</option>
+                                  @foreach($partners as $partner)
+                                  <option value="{{$partner->id}}" {{$order->partners[0]->id==$partner->id?'selected':''}}>{{$partner->labname}}</option>
+                                  <!-- <option value="I">Inactive</option> -->
+                                  @endforeach
+                              </select>
+
+                          </div>
+                  </div>
+              
+
+
+
             <input type="submit" class="btn btn-success btn-s-xs" value="Update"/>
 
 

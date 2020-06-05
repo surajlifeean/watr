@@ -10,4 +10,9 @@ class Partner extends Model
 
     	return $this->belongsToMany(Parameter::class)->withPivot('cost');
     }
+
+        public function orders(){
+
+    	return $this->belongsToMany(Order::class);
+    }
 }

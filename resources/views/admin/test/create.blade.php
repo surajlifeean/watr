@@ -37,9 +37,6 @@
                           </div>
                         </div>
                         <label class="col-sm-3 control-label">Parameters</label>
-                          <!-- <div class="col-sm-9">
-                            <input type="text" name="parameters" class="form-control"  data-required="true" placeholder="Select Parameters" required>   
-                        </div> -->
                         <select class="js-example-basic-multiple form-control" name="parameters[]" multiple="multiple">
                           @foreach($parameters as $key=>$value)
                           <option value="{{$value}}">{{$key}}</option>
@@ -75,7 +72,7 @@
                          </div>
 
                     
-              
+
                   <footer class="panel-footer text-right bg-light lter">
                        
                           <input type="submit" class="btn btn-success btn-s-xs" value="Submit"/>

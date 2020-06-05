@@ -101,7 +101,7 @@ class AssistanceController extends Controller
             $partner->status = 'A';
             if($partner->save()){
                 $request->session()->flash('success', 'Partner Status Set To Responded Successfully.');
-                return redirect('/admin/partner');
+                return redirect('/admin/assistance');
             }
         }
     }

@@ -50,7 +50,8 @@
                       <th>Ordered Test</th>
                       <th>Ordered On</th>
                       <th>Collection Date</th>
-                      <th>Bill Amount</th>
+                      <th>Bill</th>
+                      <th>Assigned To</th>
                       <th>Actions</th>
                       <!-- <th>Salary</th> -->
                     </tr>
@@ -66,6 +67,7 @@
                       <th>Ordered On</th>
                       <th>Collection Date</th>
                       <th>Bill Amount</th>
+                      <th>Assigned To</th>
                       <th>Actions</th>
 
                       <!-- <th>Salary</th> -->
@@ -100,9 +102,9 @@
                       <td>{{$order->created_at}}</td>
                       <td>{{$order->pickup_date}}</td>
                       <td>Rs{{$order->billamt}}</td>
-
+                      <td>{{count($order->partners)?$order->partners[0]->labname:''}}</td>
                       <td>
-                      <a href="{{route('order.edit',$order->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
+                      <a href="{{route('order.show',$order->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
                     
 
                     </td>
