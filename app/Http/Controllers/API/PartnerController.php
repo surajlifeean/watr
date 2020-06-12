@@ -218,7 +218,9 @@ echo json_encode($response);
 		{
 			$lat = $request->lat;
 			$long = $request->long;
-			$pincode=$request['pincode'];
+			// $pincode=$request['pincode'];
+			$pincode="700587";
+			// dd($pincode);
 			$dictrictCode=substr($pincode,0,3);
 			$nearestLabs=Partner::select('labname',DB::raw("CONCAT(address,',',city,',',pincode,',',state) AS complete_address"))->where([
 				['pincode','like',"%{$dictrictCode}%"],
