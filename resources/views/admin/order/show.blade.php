@@ -146,7 +146,11 @@
                     @foreach($order->tests as $test)
                           <tr>
                             <td>
-                            {{$cnt++.'>'.$test->name}}
+                            {{$cnt++.'> Test: '.$test->name}}
+                            <br>{{"Parameters Covered: "}}
+                            @foreach($test->parameters as $parameters)
+                                  {{$parameters->name}}<br>
+                            @endforeach
                             </td>
 <!--                             <td></td>
 
@@ -157,14 +161,25 @@
                 </table>
               </div>
                     
+
+                  @if(Auth::guard('admin')->check())
+
                   <div class="form-group">
                           <label class="col-sm-3 control-label">Test Assingment</label>
                           <div class="col-sm-9">
                               
                               <select name="partner" required>
                                   <option value="">Select Partner</option>
+                                  @php
+                                    if(isset($order->partners[0]))
+                                    $ass_pt=$order->partners[0];
+                                    else
+                                    $ass_pt=Null;
+                                    
+                                  @endphp
+
                                   @foreach($partners as $partner)
-                                  <option value="{{$partner->id}}" {{$order->partners[0]->id==$partner->id?'selected':''}}>{{$partner->labname}}</option>
+                                  <option value="{{$partner->id}}" {{$ass_pt==$partner->id?'selected':''}}>{{$partner->labname}}</option>
                                   <!-- <option value="I">Inactive</option> -->
                                   @endforeach
                               </select>
@@ -172,6 +187,7 @@
                           </div>
                   </div>
               
+                  @endif
 
 
 

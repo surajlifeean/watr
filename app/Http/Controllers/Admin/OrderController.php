@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use Session;
 use App\Partner;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -17,8 +18,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order=Order::all();
-    
+
+        // for listin of orders assigned to a partner
+        if(Auth::guard('member')->check()){
+            $member_id=Auth::guard('member')->user()->id;
+            $partner=Partner::where('member_id',$member_id)->first();
+            $order=$partner->orders;
+            // $order=Order
+        }
+        else{
+            $order=Order::all();
+        }
+
+        
         return view('admin.order.index')->withOrders($order);
     }
 
@@ -76,10 +88,24 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
+        // execute when the request is from member 
+        if(Auth::guard('member')->check()){
+        $order=Order::find($id);
+        $order->order_status=$request->status;
+        $order->save();
+}
+else{
+        // execute when the request is from admin 
         $order=Order::find($id);
         $order->order_status=$request->status;
         $order->save();
         $order->partners()->sync($request->partner);
+}
+
+
+
         session::flash('success', 'Order Status Has Been Updated Successfully!');
         return redirect()->route('order.index');
 

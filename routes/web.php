@@ -73,7 +73,7 @@ Route::prefix('member')->group(function() {
 	Route::post('/login','Auth\MemberLoginController@login')->name('member.login.submit');
 	Route::get('/','MemberController@index')->name('member');
     Route::post('/logout','Auth\MemberLoginController@logout')->name('member.logout');
-    Route::resource('order', 'Member\OrderController');
+    Route::resource('order', 'Admin\OrderController');
 
  //    Route::resource('parameter', 'Admin\ParameterManagementController');
  //    Route::resource('test', 'Admin\TestManagementController');

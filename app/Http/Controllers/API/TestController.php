@@ -12,6 +12,8 @@ use App\User;
 use App\Test;
 use App\Cart_Test;
 use Validator;
+use App\Order;
+use App\Report;
 
 class TestController extends Controller
 {
@@ -65,5 +67,65 @@ class TestController extends Controller
 		return response()->json($res, '200');
 		return $this->sendResponse($test);
 		}   
+
+		public function getReport(Request $request)
+		{
+
+			$uid=$request->user()->id;
+			#get all oredr for this user
+			$order_ids=Order::where('user_id',$uid)->pluck('id');
+
+			// dd($order_ids);
+
+			#get all report for this order ids
+			$reports=Report::whereIn('order_id',$order_ids)->orderby('order_id')->get();
+			
+			// $reports=Report::whereIn('order_id',$order_ids)->groupby('order_id')->get();
+
+
+			#write the code to be executed if user has no report
+
+
+
+
+			#create response data
+			// dd($reports[0]['test_name']);
+			$report_response=[];
+			$des=[];
+			$prev=$reports[0]['order_id'];
+			$current='';
+
+			// dd(end($reports));
+
+			foreach ($reports as $key=>$report) {
+				$current=$report['order_id'];
+				$report_response[$report['order_id']]['report_file_path']=url('images/'.$report['filename']);
+
+
+				$report_response[$report['order_id']]['tests'][$report['test_name']][]=['parameter'=>$report['parameter'],'result'=>$report['result']];
+				// $k = array_search(end($report_response),$report_response);
+				// $report_response[$report['order_id']]['tests'][$report['test_name']][$k]['result']=$report['result'];
+				// $cnt=$cnt+1;
+				if($prev!=$current)
+					{
+						// dd($des);
+						$report_response[$prev]['description']=join(',',array_unique($des));
+						// dd(array_unique($des));
+
+						$prev=$current;
+						
+					}
+				$des[$key]=$report['test_name'];
+
+			}
+
+			$report_response[$prev]['description']=join(',',array_unique($des));
+			$des[$key]=$report['test_name'];
+
+
+		// dd($report_response);
+		return response()->json($report_response, '200');
+
+		}
 
 }
