@@ -15,4 +15,10 @@ class Parameter extends Model
 
     	return $this->belongsToMany(Partner::class);
     }
+
+           public function recommendations(){
+
+    	return $this->belongsToMany(Recommendation::class);
+    }
+
 }

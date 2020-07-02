@@ -81,41 +81,57 @@ class TestController extends Controller
 			$reports=Report::whereIn('order_id',$order_ids)->orderby('order_id')->get();
 			
 			// $reports=Report::whereIn('order_id',$order_ids)->groupby('order_id')->get();
-
+			// dd($reports->count());
 
 			#write the code to be executed if user has no report
+			$report_response=[];
 
+			if($reports->count()==0){
+			$report_response=['ack'=>0,'msg'=>'No Reports Availble'];
+			return response()->json($report_response, '200');
 
-
+		}
 
 			#create response data
 			// dd($reports[0]['test_name']);
-			$report_response=[];
+			// $report_response=[];
 			$des=[];
 			$prev=$reports[0]['order_id'];
 			$current='';
 
 			// dd(end($reports));
+// report_respose[7]['report_file_path']='url'
+// report_respose[7]['tests']
+// 				[test1]
+// 					[0]=>p,r
+// 					[1]=>p,r
+// 				[test2]
+// 					[0]
+
+
 
 			foreach ($reports as $key=>$report) {
 				$current=$report['order_id'];
-				$report_response[$report['order_id']]['report_file_path']=url('images/'.$report['filename']);
+				$report_response[$report['order_id']]['report_file_path']=url('/public/images/'.$report['filename']);
 
 
 				$report_response[$report['order_id']]['tests'][$report['test_name']][]=['parameter'=>$report['parameter'],'result'=>$report['result']];
-				// $k = array_search(end($report_response),$report_response);
-				// $report_response[$report['order_id']]['tests'][$report['test_name']][$k]['result']=$report['result'];
-				// $cnt=$cnt+1;
+
+
+
 				if($prev!=$current)
 					{
-						// dd($des);
+						
 						$report_response[$prev]['description']=join(',',array_unique($des));
-						// dd(array_unique($des));
+						
+						$des=[];
 
 						$prev=$current;
 						
 					}
-				$des[$key]=$report['test_name'];
+
+			$des[$key]=$report['test_name'];
+
 
 			}
 
@@ -124,8 +140,23 @@ class TestController extends Controller
 
 
 		// dd($report_response);
-		return response()->json($report_response, '200');
+
+		// return response()->json($report_response, '200');
+
+
+
+			$cleansed=['ack'=>1];
+
+			foreach ($report_response as $key => $value) {
+
+				$cleansed['data'][]=['description'=>$value['description'],'file_path'=>$value['report_file_path'],'tests'=>$value['tests']];
+					
+			}
+			// $report_response['ack']=1;
+
+		return response()->json($cleansed, '200');
 
 		}
 
 }
+
