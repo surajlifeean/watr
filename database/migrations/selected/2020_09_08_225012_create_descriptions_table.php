@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecommendationsTable extends Migration
+class CreateDescriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateRecommendationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('recommendations', function (Blueprint $table) {
+        Schema::create('descriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('recommendation');
+            $table->string('title');
+            $table->mediumText('description');
+            $table->string('image');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -27,8 +30,6 @@ class CreateRecommendationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recommendations');
+        Schema::dropIfExists('descriptions');
     }
 }
-
-#/c/xampp/htdocs/watr/app/database/migrations/selected

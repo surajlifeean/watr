@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 
 
 // Route::get('/contact', function () {
@@ -52,22 +56,23 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('contact', 'Admin\ContactController');
 
+    Route::resource('aboutus', 'Admin\AboutusController');
+
     Route::resource('partner', 'Admin\PartnerController');
 
     Route::resource('assistance', 'Admin\AssistanceController');
 
     Route::resource('order', 'Admin\OrderController');
 
-Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
+    Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
 
-Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
-
-Route::get('assistance/statuschange/{id}', array('as' => 'admin.assistance.statuschange', 'uses' => 'Admin\AssistanceController@statuschange'));
+    Route::get('assistance/statuschange/{id}', array('as' => 'admin.assistance.statuschange', 'uses' => 'Admin\AssistanceController@statuschange'));
 
 });
 
-Route::prefix('member')->group(function() {
+    Route::prefix('member')->group(function() {
 
 	Route::get('/login', 'Auth\MemberLoginController@showLoginForm')->name('partner.login');
 	Route::post('/login','Auth\MemberLoginController@login')->name('member.login.submit');

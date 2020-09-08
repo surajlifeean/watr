@@ -39,6 +39,8 @@ Route::group([ 'prefix' => 'auth'], function (){
         Route::post('profile', 'API\AuthController@Profile');
         Route::get('orderlisting', 'API\OrderController@OrderListing');
         Route::get('report', 'API\TestController@getReport');
+        Route::get('recom', 'API\TestController@getRecom');
+
 
     });
 }); 

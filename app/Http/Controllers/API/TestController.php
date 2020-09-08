@@ -71,6 +71,7 @@ class TestController extends Controller
 		public function getReport(Request $request)
 		{
 
+
 			$uid=$request->user()->id;
 			#get all oredr for this user
 			$order_ids=Order::where('user_id',$uid)->pluck('id');
@@ -98,16 +99,6 @@ class TestController extends Controller
 			$des=[];
 			$prev=$reports[0]['order_id'];
 			$current='';
-
-			// dd(end($reports));
-// report_respose[7]['report_file_path']='url'
-// report_respose[7]['tests']
-// 				[test1]
-// 					[0]=>p,r
-// 					[1]=>p,r
-// 				[test2]
-// 					[0]
-
 
 
 			foreach ($reports as $key=>$report) {
@@ -156,6 +147,74 @@ class TestController extends Controller
 
 		return response()->json($cleansed, '200');
 
+
+		}
+
+		public function getRecom(Request $request)
+		{
+
+			$uid=$request->user()->id;
+			#get all oredr for this user
+			$order_ids=Order::where('user_id',$uid)->pluck('id');	
+			#get all report for this order ids
+			$reports=Report::whereIn('order_id',$order_ids)->select('parameters.id','reports.test_name','reports.parameter','reports.result','reports.outcome','reports.order_id','recommendations.recommendations')
+						->join('parameters', 'parameters.name', '=', 'reports.parameter')
+						->join("parameter_recommendation",function($join){
+							$join->on('parameters.id','=','parameter_recommendation.parameter_id')
+							->on('reports.outcome','=','parameter_recommendation.outcome');
+						})
+						->join('recommendations','parameter_recommendation.recommendation_id','=','recommendations.id')
+						->orderby('order_id')
+						->get();
+
+
+			// dd($reports);
+			// return response()->json($reports, '200');
+
+
+
+			$report_response=[];
+
+			if($reports->count()==0){
+			$report_response=['ack'=>0,'msg'=>'No Recommendations Availble'];
+			return response()->json($report_response, '200');
+			}
+
+			$prev=$reports[0]['order_id'];
+			$current='';
+
+
+
+			foreach ($reports as $key=>$report) {
+
+					$current=$report['order_id'];
+
+					$report_response[$current][$report['test_name']][]=$report['recommendations'];
+
+			}	
+
+
+			$cleansed=['ack'=>1];
+
+			foreach ($report_response as $key => $value) {
+
+				// $cleansed['data'][]=$value;
+				// $temp=array();
+				$temp=array();
+				foreach ($value as $k => $v) {
+					
+					$temp[$k]=array_unique($v);
+
+				}
+				$cleansed['data'][]=$temp;
+			
+
+			}
+
+
+			return response()->json($cleansed, '200');
+
+			
 		}
 
 }

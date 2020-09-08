@@ -21,4 +21,5 @@ class Parameter extends Model
     	return $this->belongsToMany(Recommendation::class);
     }
 
+
 }
