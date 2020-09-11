@@ -17,8 +17,8 @@ class AboutusController extends Controller
      */
     public function index()
     {
-        $about=About::all();
-        return view('admin.about.index')->withAbout($about);
+        $about=About::orderby('type','asc')->get();
+        return view('admin.about.edit')->withAbout($about);
 
     }
 
@@ -41,27 +41,36 @@ class AboutusController extends Controller
      */
     public function store(Request $request)
     {
-        $about=new About;
-        $variable=$request->toArray();
-        foreach ($variable as $key => $value) {
-           if($key!='_token' & $key!='image_name')
-            $about->$key=$value;
+
+            // dd($request->file('image_name')[0]);
+
+        About::truncate();
+        // $test->delete()
+
+
+        // dd($request);
+        foreach ($request['title'] as $key => $value) {
+
+            $about=new About;
+            $about->title=$value;
+            $about->text=$request['text'][$key];
+            $about->type=$request['type'][$key];
+            
+            $image=$request->file('image_name')[$key];
+            $filename='about'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention
+            $location=public_path('/images/about/'.$filename);
+            // use $location='images/'.$filename; on a server
+            if($request['type'][$key]=='about')
+                Image::make($image)->resize(800,400)->save($location);
+            else
+                Image::make($image)->resize(400,400)->save($location);
+
+            $about->image=$filename;
+            $about->save();        
         }
 
-        $image=$request->file('image_name');
-        //if($request->hasFile('image_name')){
-        //dd($image);
-        $filename='about'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention library
-        $location=public_path('/images/'.$filename);
-
-        // use $location='images/'.$filename; on a server
-
-        Image::make($image)->resize(800,400)->save($location);
-        $about->image=$filename;
-        $about->save();        
-
-        session::flash('success', 'The About Image Has Been Added Successfully!');
-        return redirect()->route('aboutus.index');
+            session::flash('success', 'The About data Has Been Added Successfully!');
+            return redirect()->route('aboutus.index');
 
     }
 

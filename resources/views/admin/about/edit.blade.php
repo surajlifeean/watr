@@ -2,6 +2,8 @@
  @section('title',"Admin | Course")
  @section('stylesheets')
 
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+
  @endsection
 
  @section('content')
@@ -11,40 +13,15 @@
 
  			<ul class="breadcrumb no-border no-radius b-b b-light pull-in">
                 <li><a href=""><i class="fa fa-home"></i>Home</a></li>>
-                <li><a href="">Course management</a></li>>
-                <li><a href="">Edit Course</a></li>
+                <li><a href="">About Watr</a></li>
+                <!-- <li><a href="">Edit Course</a></li> -->
             </ul>
 
-                      {{Form::open(['route' => 'course-management.store','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+                      {{Form::open(['route' => 'aboutus.store','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
                       <div class="panel-body">                   
-                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Course Name</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="name" class="form-control" value="{{$course[0]->name}}" data-required="true" placeholder="Course Name" required>   
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Eligibility</label>
-                          <div class="col-sm-9">
-                            <textarea class="summernote" name="eligibility" class="form-control" required>{{$course[0]->eligibility}}</textarea> 
-<!--                             <input type="text" name="yoe" class="form-control"  data-required="true" placeholder="Years Of Experience" data-parsley-type="digits" maxlength="2" required>    -->
-                          </div>
-                        </div>
-
-
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Duration</label>
-                          <div class="col-sm-9">
-                            <input type="text" name="duration" class="form-control" value="{{$course[0]->duration}}" data-required="true" placeholder="Duration" required> 
-
-                          </div>
-                        </div>
-
-
                          <div class="line line-dashed line-lg pull-in"></div>
                         <div class="form-group">
-                          <label class="col-sm-3 control-label">Syllabus</label>
+                          <label class="col-sm-3 control-label">About Details</label>
                           <div class="col-sm-9">
 
 
@@ -57,37 +34,81 @@
   $i=0;
 
 @endphp
-                                            @foreach($course as $c)
+                                            @foreach($about as $c)
 
                                             <div id="field">
                                             <div id="field{{$i}}">
 
-                                              @php $i+=1; @endphp
                             <!-- Text input-->
-                                                <div class="form-group">
-                                                  <label class="col-md-4 control-label" for="action_id">Session Name</label>  
+                                  <div class="form-group">
+
+
+                                              <label class="col-sm-3 control-label">Select An Image(Min Dimension:800x400)</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input_fields_wrap">
+                                                          <div style="margin-bottom:10px;">
+                                                               <input type="file" name="image_name[]" class="GalleryImage" id="img0"/> {{$c->image}}
+                                                          </div>
+
+                                                   </div>      
+                                             </div>
+
+                                             @if($c->type=='about')
+
+                                            <input type="hidden" name="type[]" value="about">
+                                            <input type="hidden" name="title[]" value="">
+
+                                            <div class="form-group">
+                                              <label class="col-sm-3 control-label">About us</label>
+                                              <div class="col-sm-9">
+                                                <textarea class="summernote" name="text[]" class="form-control" required>{!!$c->text!!}</textarea> 
+                                              </div>
+                                            </div> 
+
+
+
+                                             @else
+
+                                              <label class="col-sm-3 control-label">Type</label>
+                                                <div class="col-sm-9">
+                                                <select name="type[]" required>
+                                                    <option value="">select</option>
+                                                    <option value="product" {{$c->type=='product'?'selected':''}}>Product</option>
+                                                    <option value="service" {{$c->type=='service'?'selected':''}} >Service</option>
+                                                    <option value="career" {{$c->type=='career'?'selected':''}}>Career</option>
+                                                    <option value="founder" {{$c->type=='founder'?'selected':''}}>Founder</option>
+                                                </select>
+                                                </div>
+
+
+                                                  <label class="col-md-4 control-label" for="action_id">Title</label>  
                                                   <div class="col-md-5">
-                                                  <input id="action_id" name="session_name[]" type="text" value="{{$c->session_name}}" placeholder="" class="form-control input-md" required>
+                                                  <input id="action_id" name="title[]" type="text" value="{{$c->title}}" placeholder="" class="form-control input-md" required>
                                                   </div>
-                                                  <label class="col-md-4 control-label" for="action_id">Topic</label>  
-                                                  <div class="col-md-5">
-                                                  <input id="action_id" name="topic[]" type="text" value="{{$c->topic}}" placeholder="" class="form-control input-md" required>
-                                                  </div>
+
                                                 </div>
                                                 <!-- Text input-->
                                                 <div class="form-group">
-                                                  <label class="col-md-4 control-label" for="action_name">Description</label>  
+                                                  <label class="col-md-4 control-label" for="action_name">Text</label>  
                                                   <div class="col-md-5">
-                                                  <textarea class="" cols="100" name="description[]" class="form-control" required>{{$c->description}}</textarea> 
+                                                  <textarea class="" cols="100" name="text[]" class="form-control" required>{{$c->text}}</textarea> 
                                                     
                                                   </div>
                                                 </div>
-                                                <br><br>
 
+
+                                                @endif
+
+                                              @php $i+=1; @endphp
+
+                                    <!-- <div class="form-group"> -->
+                                        <!-- <div class="col-md-4"> -->
+                                          <button id="remove{{$i-1}}" class="btn btn-danger remove-me" >Remove</button>
+                                        <!-- </div> -->
+                                                <br><br>
                                                 </div>
                                                 </div>
                                                 @endforeach
-
                                                 <!-- Button -->
                                                 <div class="form-group">
                                                   <div class="col-md-4">
@@ -95,7 +116,6 @@
                                                   </div>
                                                 </div>
                                                 <br><br>
-                                          
                                         </div>
                                     </div>
                                 </div>
@@ -106,26 +126,7 @@
                         </div>
 
                         <div class="line line-dashed line-lg pull-in"></div>
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Status</label>
-                          <div class="col-sm-9">
-                            <select name="status" required>
-                         <option value="">select</option>
-                         <option value="A">Active</option>
-                         <option value="I">Inactive</option>
-                        <option value="A" {{$course[0]->status=='A'?'selected':''}}>Active</option>
-                         <option value="I" {{$course[0]->status=='I'?'selected':''}}>Inactive</option>
-
-
-                           </select>
-
-                          </div>
-                         </div>
-                    
-                    
-                      
-
-
+              
                   <footer class="panel-footer text-right bg-light lter">
                        
                           <input type="submit" class="btn btn-success btn-s-xs" value="Submit"/>
@@ -151,12 +152,17 @@
 
 
 @section('scripts')
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+
 <script type="text/javascript">
   $(document).ready(function () {
     //@naresh action dynamic childs
 
 
 var next = <?php echo json_encode($i) ?>;
+var i = <?php echo json_encode($i) ?>;
 
 
     // var next = 0;
@@ -167,12 +173,15 @@ var next = <?php echo json_encode($i) ?>;
         var addto = "#field" + next;
         var addRemove = "#field" + (next);
         next = next + 1;
-        var newIn = '<div id="field'+ next +'" name="field'+ next +'"><div class="form-group"><label class="col-md-4 control-label" for="session_id">Session Name</label><div class="col-md-5"><input id="session_id" name="session_name[]" type="text" placeholder="" class="form-control input-md" required></div><label class="col-md-4 control-label" for="action_id">Topic</label><div class="col-md-5"><input id="action_id" name="topic[]" type="text" placeholder="" class="form-control input-md" required></div></div><!-- Text input--><div class="form-group"><label class="col-md-4 control-label" for="action_name">Description</label><div class="col-md-5"><textarea class="" cols="100" name="description[]" class="form-control" required></textarea></div></div><br><br></div>';
+        console.log(next,i);
+        var newIn = '<div id="field'+ next +'" name="field'+ next +'"><div class="form-group"><label class="col-sm-3 control-label">Select An Image(Min Dimension:800x400)</label><div class="col-sm-9"><div class="input_fields_wrap"><div style="margin-bottom:10px;"><input type="file" name="image_name[]" class="GalleryImage" id="img0"/>&nbsp</div></div></div><label class="col-sm-3 control-label">Type</label><div class="col-sm-9"><select name="type[]" required><option value="">select</option><option value="product">Product</option><option value="service">Service</option><option value="career">Career</option></select></div></div><!-- Text input--><label class="col-md-4 control-label" for="action_id">Title</label><div class="col-md-5"><input id="action_id" name="title[]" type="text" placeholder="" class="form-control input-md" required></div><div class="form-group"><label class="col-md-4 control-label" for="action_name">Description</label><div class="col-md-5"><textarea class="" cols="100" name="text[]" class="form-control" required></textarea></div></div><br><br></div>';
         var newInput = $(newIn);
         var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
         var removeButton = $(removeBtn);
         $(addto).after(newInput);
-        $(addRemove).after(removeButton);
+        if(next!=i)
+          $(addRemove).after(removeButton);
+
         $("#field" + next).attr('data-source',$(addto).attr('data-source'));
         $("#count").val(next);  
         

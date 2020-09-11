@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\About;
 
 class HomeController extends Controller
 {
@@ -24,5 +25,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function about()
+    {
+        $about=About::where('type','about')->orderby('created_at','desc')->first();
+        // dd($about);
+        return view('about')->withAbout($about);
     }
 }
