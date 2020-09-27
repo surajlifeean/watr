@@ -17,7 +17,12 @@
                 <!-- <li><a href="">Edit Course</a></li> -->
             </ul>
 
-                      {{Form::open(['route' => 'aboutus.store','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+                      <!-- {{Form::open(['route' => 'aboutus.store','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}} -->
+
+                      {{Form::model($about,['route' =>['aboutus.update',1],'method'=>'PUT','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+
+
+
                       <div class="panel-body">                   
                          <div class="line line-dashed line-lg pull-in"></div>
                         <div class="form-group">
@@ -29,11 +34,11 @@
                                         <div class="col-md-12" >
                                             <!-- <h3> Actions</h3> -->
 
-@php
+                                            @php
 
-  $i=0;
+                                              $i=0;
 
-@endphp
+                                            @endphp
                                             @foreach($about as $c)
 
                                             <div id="field">
@@ -52,11 +57,12 @@
 
                                                    </div>      
                                              </div>
-
+                                            <input type="hidden" name="id[]" value="{{$c->id}}">
                                              @if($c->type=='about')
 
+
                                             <input type="hidden" name="type[]" value="about">
-                                            <input type="hidden" name="title[]" value="">
+                                            <input type="hidden" name="title[]" value="about">
 
                                             <div class="form-group">
                                               <label class="col-sm-3 control-label">About us</label>
@@ -174,7 +180,7 @@ var i = <?php echo json_encode($i) ?>;
         var addRemove = "#field" + (next);
         next = next + 1;
         console.log(next,i);
-        var newIn = '<div id="field'+ next +'" name="field'+ next +'"><div class="form-group"><label class="col-sm-3 control-label">Select An Image(Min Dimension:800x400)</label><div class="col-sm-9"><div class="input_fields_wrap"><div style="margin-bottom:10px;"><input type="file" name="image_name[]" class="GalleryImage" id="img0"/>&nbsp</div></div></div><label class="col-sm-3 control-label">Type</label><div class="col-sm-9"><select name="type[]" required><option value="">select</option><option value="product">Product</option><option value="service">Service</option><option value="career">Career</option></select></div></div><!-- Text input--><label class="col-md-4 control-label" for="action_id">Title</label><div class="col-md-5"><input id="action_id" name="title[]" type="text" placeholder="" class="form-control input-md" required></div><div class="form-group"><label class="col-md-4 control-label" for="action_name">Description</label><div class="col-md-5"><textarea class="" cols="100" name="text[]" class="form-control" required></textarea></div></div><br><br></div>';
+        var newIn = '<div id="field'+ next +'" name="field'+ next +'"><div class="form-group"><label class="col-sm-3 control-label">Select An Image(Min Dimension:800x400)</label><div class="col-sm-9"><div class="input_fields_wrap"><div style="margin-bottom:10px;"><input type="file" name="image_name[]" class="GalleryImage" id="img0" required/>&nbsp</div></div></div><label class="col-sm-3 control-label">Type</label><div class="col-sm-9"><select name="type[]" required><option value="">select</option><option value="product">Product</option><option value="service">Service</option><option value="career">Career</option></select></div></div><!-- Text input--><label class="col-md-4 control-label" for="action_id">Title</label><div class="col-md-5"><input id="action_id" name="title[]" type="text" placeholder="" class="form-control input-md" required></div><div class="form-group"><label class="col-md-4 control-label" for="action_name">Description</label><div class="col-md-5"><textarea class="" cols="100" name="text[]" class="form-control" required></textarea></div></div><br><br></div>';
         var newInput = $(newIn);
         var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >Remove</button></div></div><div id="field">';
         var removeButton = $(removeBtn);

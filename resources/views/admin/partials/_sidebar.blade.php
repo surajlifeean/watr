@@ -116,6 +116,26 @@
         </div>
       </li>
 
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbout" aria-expanded="true" aria-controls="collapseAbout">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>About us</span>
+        </a>
+        <div id="collapseAbout" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <a class="collapse-item" href="{{route('partner.create')}}">Add</a> -->
+            <a class="collapse-item" href="{{route('aboutus.index')}}">Show/Edit</a>
+            <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
+            <a class="collapse-item" href="{{route('aboutus.create')}}">Add</a>
+
+         </div>
+        </div>
+      </li>
+
+
+
       <!-- Nav Item - Charts -->
       <li class="nav-item">
         <a class="nav-link" href="{{route('contact.index')}}">

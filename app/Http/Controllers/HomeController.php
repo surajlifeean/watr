@@ -30,7 +30,16 @@ class HomeController extends Controller
     public function about()
     {
         $about=About::where('type','about')->orderby('created_at','desc')->first();
+        $service=About::where('type','service')->orderby('created_at','desc')->get();
+
+        $product=About::where('type','product')->orderby('created_at','desc')->get();
+
+        $founder=About::where('type','founder')->orderby('created_at','desc')->get();
+
+        $carrier=About::where('type','career')->orderby('created_at','desc')->get();
+
+
         // dd($about);
-        return view('about')->withAbout($about);
+        return view('about')->withAbout($about)->withService($service)->withProduct($product)->withFounder($founder)->withCarrier($carrier);
     }
 }

@@ -195,9 +195,9 @@
 
 <div class="jumbotron text-center" style="background-image: url({{asset('images/banner.jpg')}}); background-size: 100% 100%;">
   <h1>Watr Technology</h1> 
-  <p>We specialize in .......</p> 
+  <p>We are hear to ensure you drink safe water</p> 
 </div>
-
+<!-- {{dump($about)}} -->
 <!-- Container (About Section) -->
 <div id="about" class="container-fluid">
   <div class="row">
@@ -228,57 +228,55 @@
   </div>
 </div> -->
 
+
 <!-- Container (Services Section) -->
+@if(count($service)>0)
 <div id="services" class="container-fluid text-center">
   <h2>SERVICES</h2>
   <h4>What we offer</h4>
   <br>
   <div class="row slideanim">
+    @foreach($service as $a)
+
+    <!-- @if(isset($a->title)) -->
+    @if($a->type=="service")
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-off logo-small"></span>
-      <h4>Service 1</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
+<!--       <span class="glyphicon glyphicon-off logo-small"></span> -->
+      <img src="{{asset('images/about/'.$a->image)}}" alt="Paris" width="400" height="300">
+
+      <h4>{{$a->title}}</h4>
+      <p>{!!$a->text!!}</p>
     </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-heart logo-small"></span>
-      <h4>Service 2</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-lock logo-small"></span>
-      <h4>Service 3</h4>
-      <p>Lorem ipsum dolor sit amet..</p>
-    </div>
+    @endif
+    <!-- @endif -->
+   @endforeach
   </div>
 </div>
 
+@endif
+
 <!-- Container (Portfolio Section) -->
 <div id="portfolio" class="container-fluid text-center bg-grey">
+
+  @if(count($product)>0)
   <h2>Products</h2><br>
   <h4>What we have created</h4>
+
+  @foreach($product as $a)
   <div class="row text-center slideanim">
     <div class="col-sm-4">
       <div class="thumbnail">
-        <img src="{{asset('images/filter.jpg')}}" alt="Paris" width="400" height="300">
-        <p><strong>Product 1</strong></p>
-        <p>Yes, we built Product 1</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="{{asset('images/filter.jpg')}}" alt="New York" width="400" height="300">
-        <p><strong>Product 2</strong></p>
-        <p>We built Product 2</p>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="thumbnail">
-        <img src="{{asset('images/filter.jpg')}}" alt="San Francisco" width="400" height="300">
-        <p><strong>Product 3</strong></p>
-        <p>Yes, Product 3 is ours</p>
+        <img src="{{asset('images/about/'.$a->image)}}" alt="Paris" width="400" height="300">
+        <p><strong>{{$a->title}}</strong></p>
+        <p>{{$a->text}}</p>
       </div>
     </div>
   </div><br>
+  @endforeach
+
+  @endif
+
+  @if(count($founder)>0)
   
   <h2>Founders</h2>
   <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
@@ -291,12 +289,14 @@
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox"> 
-      <div class="item active"><img src="{{asset('images/founder.jpg')}}" style="border-radius:50%;">
-        <h4>"Founder 1"<br><span>An ex IIT alumni</span></h4>
+      
+      @foreach($founder as $a)
+
+      <div class="item active"><img src="{{asset('images/about/'.$a->image)}}" style="border-radius:50%;">
+        <h4>{{$a->title}}<br><span>{{$a->text}}</span></h4>
       </div>
-      <div class="item"><img src="{{asset('images/founder.jpg')}}" style="border-radius:50%;">
-        <h4>"Founder 2"<br><span>An ex IIT alumni</span></h4>
-      </div>
+      @endforeach
+    
     </div>
 
     <!-- Left and right controls -->
@@ -309,41 +309,45 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+
+  @endif
+
 </div>
+
+@if(count($carrier)>0)
 
 <!-- Container (Pricing Section) -->
 <div id="pricing" class="container-fluid">
   <div class="text-center">
-    <h2>Carrier @ Watr</h2>
+    <h2>Career @ Watr</h2>
     <h4>Below opportunities awaits you!</h4>
   </div>
 <div class="list-group">
+@foreach($carrier as $a)
+
+@php
+
+$fdate = $a->created_at;
+$tdate = date('y-m-d');
+$datetime1 = new DateTime($fdate);
+$datetime2 = new DateTime($tdate);
+$interval = $datetime1->diff($datetime2);
+$days = $interval->format('%a');
+@endphp
+
+
   <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small>3 days ago</small>
+      <h5 class="mb-1">{{$a->title}}</h5>
+      <small>{{$days}} days ago</small>
     </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small>Donec id elit non mi porta.</small>
+    <p class="mb-1">{{$a->text}}</small>
   </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
-  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">List group item heading</h5>
-      <small class="text-muted">3 days ago</small>
-    </div>
-    <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-    <small class="text-muted">Donec id elit non mi porta.</small>
-  </a>
+@endforeach
 </div>
 </div>
+
+@endif
 
 <!-- Container (Contact Section) -->
 

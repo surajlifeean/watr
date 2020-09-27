@@ -18,7 +18,11 @@ class AboutusController extends Controller
     public function index()
     {
         $about=About::orderby('type','asc')->get();
-        return view('admin.about.edit')->withAbout($about);
+        // dd($about);
+        if(count($about)>0)
+            return view('admin.about.edit')->withAbout($about);
+        else
+            return view('admin.about.create');
 
     }
 
@@ -29,7 +33,15 @@ class AboutusController extends Controller
      */
     public function create()
     {
-        return view('admin.about.create');
+
+        $about=About::orderby('type','asc')->get();
+        // dd($about);
+
+        if(count($about)>0)
+            return view('admin.about.edit')->withAbout($about);
+        else
+            return view('admin.about.create');
+
         
     }
 
@@ -44,7 +56,7 @@ class AboutusController extends Controller
 
             // dd($request->file('image_name')[0]);
 
-        About::truncate();
+        // About::truncate();
         // $test->delete()
 
 
@@ -105,7 +117,62 @@ class AboutusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // if id values exits then update that record else insert a new record
+
+        // dd($request);
+
+        foreach ($request['title'] as $key => $value) {
+
+            if(isset($request['id'][$key])){
+                // echo "edit";
+            $about=About::find($request['id'][$key]);
+            $about->title=$value;
+            $about->text=$request['text'][$key];
+            $about->type=$request['type'][$key];     
+            if(isset($request->file('image_name')[$key])){
+
+                // echo($key."change existing image<br>");
+
+                $image=$request->file('image_name')[$key];
+                $filename='about'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention
+                $location=public_path('/images/about/'.$filename);
+                if($request['type'][$key]=='about')
+                    Image::make($image)->resize(800,400)->save($location);
+                else
+                    Image::make($image)->resize(400,400)->save($location);
+
+                $about->image=$filename;
+                }
+                // echo($key."do not change existing image<br>");
+                $about->save();
+
+            }
+            else{
+
+                // echo "add";
+            $about=new About;
+            $about->title=$value;
+            $about->text=$request['text'][$key];
+            $about->type=$request['type'][$key];
+            $image=$request->file('image_name')[$key];
+            $filename='about'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention
+            $location=public_path('/images/about/'.$filename);
+            // use $location='images/'.$filename; on a server
+            if($request['type'][$key]=='about')
+                Image::make($image)->resize(800,400)->save($location);
+            else
+                Image::make($image)->resize(400,400)->save($location);
+
+            $about->image=$filename;
+            $about->save();
+            }
+        
+        }
+
+            session::flash('success', 'The About data Has Been Added Successfully!');
+            return redirect()->route('aboutus.index');
+
+
     }
 
     /**
