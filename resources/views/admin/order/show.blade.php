@@ -105,7 +105,7 @@
                           <div class="col-sm-9">
                             <select name="status" disabled="true">
                          <option value="">select</option>
-                         <option value="1" {{$order->pickupst_time=='09:00:00'?'selected':''}}>Morning</option>
+                         <option value="1" {{$order->pickupst_time=='08:00:00'?'selected':''}}>Morning</option>
                          <option value="2" {{$order->pickupst_time=='12:00:00'?'selected':''}}>Noon</option>
                         <option value="3" {{$order->pickupst_time=='16:00:00'?'selected':''}}>Evening</option>
 
@@ -120,13 +120,23 @@
                           <label class="col-sm-3 control-label">Order Status</label>
                           <div class="col-sm-9">
                             <select name="status">
-                         <option value="">select</option>
-                          <option value="1" {{$order->order_status=='1'?'selected':''}}>Order Placed</option>
-                          <option value="2" {{$order->order_status=='2'?'selected':''}}>Sample Collected</option>
-                          <option value="3" {{$order->order_status=='3'?'selected':''}}>Analysis</option>
-                          <option value="4" {{$order->order_status=='4'?'selected':''}}>Report Generated</option>
 
-                           </select>
+                            @if(Auth::guard('admin')->check())
+                            
+                              <option value="">select</option>
+                              <option value="1" {{$order->order_status=='1'?'selected':''}}>Order Placed</option>
+                              <option value="2" {{$order->order_status=='2'?'selected':''}}>Sample Collection</option>
+                              <option value="3" {{$order->order_status=='3'?'selected':''}}>Analysis in Progress</option>
+                              <option value="4" {{$order->order_status=='4'?'selected':''}}>Report Generated</option>
+
+                            @elseif(Auth::guard('member')->check())
+                              <option value="2" {{$order->order_status=='2'?'selected':''}}>Sample Collection</option>
+                              <option value="3" {{$order->order_status=='3'?'selected':''}}>Analysis in Progress</option>
+                              <option value="4" {{$order->order_status=='4'?'selected':''}}>Report Generated</option>
+
+                            @endif
+
+                         </select>
 
                           </div>
                          </div>
@@ -171,17 +181,22 @@
                               <select name="partner" required>
                                   <option value="">Select Partner</option>
                                   @php
+
                                     if(isset($order->partners[0]))
-                                    $ass_pt=$order->partners[0];
+                                     $ass_pt=$order->partners[0];
                                     else
-                                    $ass_pt=Null;
+                                      $ass_pt=null;
                                     
                                   @endphp
 
+                                  
+
                                   @foreach($partners as $partner)
-                                  <option value="{{$partner->id}}" {{$ass_pt==$partner->id?'selected':''}}>{{$partner->labname}}</option>
+                                  <option value="{{$partner->id}}"
+                                    {{$ass_pt['id']==$partner->id?'selected':''}}>{{$partner->labname}}</option>
                                   <!-- <option value="I">Inactive</option> -->
                                   @endforeach
+
                               </select>
 
                           </div>
@@ -190,11 +205,62 @@
                   @endif
 
 
+              <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                      <td>
+                      <b>Test Name</b>
+                      </td>
+                      <td><b>Parameters Name</b></td>
+                      <td><b>Result</b></td>
+                      <td><b>Outcome(Low/High)</b></td> 
+                      </tr>
+                    @foreach($order->tests as $test)
+                    @foreach($test->parameters as $parameters)
+                          <tr>
+                                <td>
+                                  {{$test->name}}
+                                </td>
+                                <td>
+                                  {{$parameters->name}}
+                                </td>
+                                <td>                                                                   <div class="form-group">
+                                     <div class="col-sm-9">
+                                     <input type="text">
+                                      </div>
+                                  </div>
+                                </td>
+                                <td>
+                            <select name="status">
+
+                            
+                              <option value="">select</option>
+                              <option value="1" {{$order->order_status=='1'?'selected':''}}>Low</option>
+                              <option value="2" {{$order->order_status=='2'?'selected':''}}>Normal</option>
+                              <option value="3" {{$order->order_status=='3'?'selected':''}}>High</option>
+
+
+
+                         </select>
+
+                                </td>
+
+                          </tr>
+                          @endforeach
+                        @endforeach
+                  
+                </table>
+              </div>
+
+
 
             <input type="submit" class="btn btn-success btn-s-xs" value="Update"/>
 
 
             </div>
+
+
+
     
                      {{Form::close()}}
                       

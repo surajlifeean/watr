@@ -153,7 +153,7 @@
         <div id="collapseOrder" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <a class="collapse-item" href="{{route('partner.create')}}">Add</a> -->
-            <a class="collapse-item" href="{{route('order.index')}}">List</a>
+            <a class="collapse-item" href="{{route('order-member.index')}}">List</a>
             <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
          </div>
         </div>

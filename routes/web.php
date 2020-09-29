@@ -15,6 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/report', function () {
+    return view('report');
+});
+
 // Route::get('/about', function () {
 //     return view('about');
 // });
@@ -73,15 +78,15 @@ Route::prefix('admin')->group(function() {
 
 });
 
+
     Route::prefix('member')->group(function() {
 
 	Route::get('/login', 'Auth\MemberLoginController@showLoginForm')->name('partner.login');
 	Route::post('/login','Auth\MemberLoginController@login')->name('member.login.submit');
 	Route::get('/','MemberController@index')->name('member');
     Route::post('/logout','Auth\MemberLoginController@logout')->name('member.logout');
-    Route::resource('order', 'Admin\OrderController');
+    Route::resource('order-member', 'Admin\OrderController');
 
  //    Route::resource('parameter', 'Admin\ParameterManagementController');
- //    Route::resource('test', 'Admin\TestManagementController');
-   
+ //    Route::resource('test', 'Admin\TestManagementController');   
 });

@@ -148,7 +148,7 @@
                         <a href="{{ route('admin.logout') }}"
                           onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
-                          Logout
+                          Admin Logout
                       </a>
 
                       <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
@@ -161,7 +161,7 @@
                         <a href="{{ route('member.logout') }}"
                           onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
-                          Logout
+                         Partner Logout
                       </a>
 
                       <form id="logout-form" action="{{ route('member.logout') }}" method="POST" style="display: none;">
