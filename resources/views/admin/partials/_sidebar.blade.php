@@ -117,6 +117,21 @@
       </li>
 
 
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRecom" aria-expanded="true" aria-controls="collapseRecom">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Recommendation</span>
+        </a>
+        <div id="collapseRecom" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{route('recommendation.index')}}">Recommendation</a>
+            
+         </div>
+        </div>
+      </li>
+
+
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbout" aria-expanded="true" aria-controls="collapseAbout">

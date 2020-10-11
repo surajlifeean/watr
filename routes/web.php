@@ -70,6 +70,8 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('order', 'Admin\OrderController');
 
+    Route::resource('recommendation', 'Admin\RecommendationController');
+
     Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
     Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));

@@ -18,7 +18,7 @@ class Parameter extends Model
 
            public function recommendations(){
 
-    	return $this->belongsToMany(Recommendation::class);
+    	return $this->belongsToMany(Recommendation::class)->withPivot('outcome');
     }
 
 

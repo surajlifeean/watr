@@ -65,9 +65,9 @@
                           <div class="col-sm-9">
                             <select name="type" required>
                          <option value="">select</option>
-                           <option value="D" {{$test->status=='D'?'selected':''}}>Default</option>
-                           <option value="O" {{$test->status=='O'?'selected':''}}>Others</option>
-                           <option value="I" {{$test->status=='I'?'selected':''}}>Individual</option>
+                           <option value="D" {{$test->type=='D'?'selected':''}}>Default</option>
+                           <option value="G" {{$test->type=='G'?'selected':''}}>Group</option>
+                           <option value="I" {{$test->type=='I'?'selected':''}}>Individual</option>
                            </select>
 
                           </div>

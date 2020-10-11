@@ -212,6 +212,8 @@
                       <b>Test Name</b>
                       </td>
                       <td><b>Parameters Name</b></td>
+                      <td><b>MCL</b></td>
+                      <td><b>MDL</b></td>
                       <td><b>Result</b></td>
                       <td><b>Outcome(Low/High)</b></td> 
                       </tr>
@@ -224,7 +226,27 @@
                                 <td>
                                   {{$parameters->name}}
                                 </td>
-                                <td>                                                                   <div class="form-group">
+                                
+                                <td>
+                                  <div class="form-group">
+                                     <div class="col-sm-9">
+                                     <input type="text" name="mcl">
+                                      </div>
+                                  </div>
+                                </td>
+                                  
+                                <td>
+                                  <div class="form-group">
+                                     <div class="col-sm-9">
+                                     <input type="text" name="mdl">
+                                      </div>
+                                  </div>
+                                </td>
+
+
+
+                                <td>                                                                   
+                                  <div class="form-group">
                                      <div class="col-sm-9">
                                      <input type="text">
                                       </div>
