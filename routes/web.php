@@ -78,6 +78,11 @@ Route::prefix('admin')->group(function() {
 
     Route::get('assistance/statuschange/{id}', array('as' => 'admin.assistance.statuschange', 'uses' => 'Admin\AssistanceController@statuschange'));
 
+    Route::get('recommendation/delete/{id}', array('as' => 'admin.recommendation.delete', 'uses' => 'Admin\RecommendationController@delete'));
+
+
+
+
 });
 
 

@@ -23,19 +23,17 @@
               <div class="table-responsive">
                     <table class="table">
                       <tr>
-                      <td>
+<!--                       <td>
                       <b>Test Name</b>
-                      </td>
+                      </td> -->
                       <td><b>Parameters Name</b></td>
                       <td><b>Recommendation(High)</b></td>
                       <td><b>Recommendation(Low)</b></td> 
                       </tr>
-                    @foreach($tests as $test)
-                    @foreach($test->parameters as $parameters)
+
+                    @foreach($param as $parameters)
                           <tr>
-                                <td>
-                                  {{$test->name}}
-                                </td>
+
                                 <td>
                                   {{$parameters->name}}
                                 </td>
@@ -91,7 +89,7 @@
                                 </td>
                           </tr>
                           @endforeach
-                        @endforeach
+
                   
                 </table>
               </div>
