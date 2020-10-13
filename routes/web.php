@@ -72,6 +72,8 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('recommendation', 'Admin\RecommendationController');
 
+    Route::resource('param-recomm', 'Admin\ParamRecommController');
+
     Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
     Route::get('partner/statuschange/{id}', array('as' => 'admin.partner.statuschange', 'uses' => 'Admin\PartnerController@statuschange'));
@@ -79,9 +81,6 @@ Route::prefix('admin')->group(function() {
     Route::get('assistance/statuschange/{id}', array('as' => 'admin.assistance.statuschange', 'uses' => 'Admin\AssistanceController@statuschange'));
 
     Route::get('recommendation/delete/{id}', array('as' => 'admin.recommendation.delete', 'uses' => 'Admin\RecommendationController@delete'));
-
-
-
 
 });
 

@@ -1,7 +1,10 @@
 @extends('admin.adminmain')
 @section('title',"Order")
-@section('stylesheets')
-@endsection
+ @section('stylesheets')
+
+        <link href="{{asset('admin/css/select2.min.css')}}" rel="stylesheet">
+ 
+ @endsection
 
 @section('content')
 <section id="content">
@@ -17,7 +20,7 @@
                        <header class="panel-heading">
                         <span class="h4">Update/Add Recommendations</span>
                       </header>
-                      {{Form::model($recom[0],['route' =>['recommendation.update',$recom[0]->id],'method'=>'PUT','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
+                      {{Form::model($param[0],['route' =>['param-recomm.update',$param[0]->id],'method'=>'PUT','files' => true, 'class'=>'form-horizontal course-form','data-parsley-validate'])}}
 
             <div class="panel-body">                   
               <div class="table-responsive">
@@ -45,7 +48,14 @@
                       @if($recom->pivot->outcome=='High')
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                     <input type="text" value="{{$recom->recommendations}}" name="high-{{$recom->pivot->parameter_id}}-{{$recom->id}}">
+
+                                        <select class="js-example-basic-multiple form-control" name="parameters[High][{{$parameters->id}}]" multiple="multiple">
+                                          <option value="{{$recom->id}}" selected="selected">{{$recom->recommendations}}</option>   
+                                            @foreach($recommends as $key=>$value)
+                                            <option value="{{$value}}">{{$key}}</option>
+                                            @endforeach
+                                          </select>
+
                                       </div>
                                   </div>
                                   @php $high=1 @endphp
@@ -57,7 +67,12 @@
                     @if($high==0)
                                 <div class="form-group">
                                    <div class="col-sm-9">
-                                   <input type="text" name="high-{{$recom->pivot->parameter_id}}-{{$recom->id}}">
+                                          <select class="js-example-basic-multiple form-control" name="parameters[High][{{$parameters->id}}]" multiple="multiple">
+ 
+                                            @foreach($recommends as $key=>$value)
+                                            <option value="{{$value}}">{{$key}}</option>
+                                            @endforeach
+                                          </select>
                                     </div>
                                 </div>
 
@@ -69,7 +84,12 @@
 
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                     <input type="text" value="{{$recom->recommendations}}" name="low-{{$recom->pivot->parameter_id}}-{{$recom->id}}">
+                                            <select class="js-example-basic-multiple form-control" name="parameters[Low][{{$parameters->id}}]" multiple="multiple">
+                                              <option value="{{$recom->id}}" selected="selected">{{$recom->recommendations}}</option>   
+                                            @foreach($recommends as $key=>$value)
+                                            <option value="{{$value}}">{{$key}}</option>
+                                            @endforeach
+                                          </select>
                                       </div>
                                   </div>
                                   @php $low=1 @endphp
@@ -79,7 +99,15 @@
                     @if($low==0)
                                 <div class="form-group">
                                    <div class="col-sm-9">
-                                   <input type="text" name="low-{{$recom->pivot->parameter_id}}-{{$recom->id}}">
+
+
+                                            <select class="js-example-basic-multiple form-control" name="parameters[Low][{{$parameters->id}}]" multiple="multiple">
+
+                                            @foreach($recommends as $key=>$value)
+                                            <option value="{{$value}}">{{$key}}</option>
+                                            @endforeach
+                                          </select>
+
                                     </div>
                                 </div>
                     
@@ -119,6 +147,24 @@
 
 
  @section('scripts')
+
+
+<script src="{{asset('admin/js/select2.min.js')}}"></script>
+
+<script>
+  $(document).ready(function() {
+    $('.js-example-basic-multiple').select2({
+       maximumSelectionLength: 1
+    });
+
+    // $('.js-example-basic-multiple').val({!! json_encode($parameters->recommendations()->allRelatedIds())!!});
+
+    $('.js-example-basic-multiple').trigger('change');
+
+});
+
+</script>
+
 
 <script>
 
