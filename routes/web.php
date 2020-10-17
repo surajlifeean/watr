@@ -70,6 +70,9 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('order', 'Admin\OrderController');
 
+    Route::resource('report', 'Admin\ReportController');
+
+
     Route::resource('recommendation', 'Admin\RecommendationController');
 
     Route::resource('param-recomm', 'Admin\ParamRecommController');

@@ -205,7 +205,7 @@
                   @endif
 
 
-              <div class="table-responsive">
+<!--               <div class="table-responsive">
                     <table class="table">
                       <tr>
                       <td>
@@ -221,16 +221,27 @@
                     @foreach($test->parameters as $parameters)
                           <tr>
                                 <td>
-                                  {{$test->name}}
+                                  <div class="form-group">
+                                     <div class="col-sm-9">
+                                     <input type="text" name="test[test][]" value='{{$test->name}}' required>
+                                      </div>
+                                  </div>
                                 </td>
                                 <td>
-                                  {{$parameters->name}}
+                                  
+                                  <div class="form-group">
+                                     <div class="col-sm-9">
+                                     <input type="text" name="test[parameter][]" value='{{$parameters->name}}' required>
+                                      </div>
+                                  </div>
+
+
                                 </td>
                                 
                                 <td>
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                     <input type="text" name="mcl">
+                                     <input type="text" name="test[mcl][]" required>
                                       </div>
                                   </div>
                                 </td>
@@ -238,7 +249,7 @@
                                 <td>
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                     <input type="text" name="mdl">
+                                     <input type="text" name="test[mdl][]" required>
                                       </div>
                                   </div>
                                 </td>
@@ -248,19 +259,19 @@
                                 <td>                                                                   
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                     <input type="text">
+                                     <input type="text" name="test[result][]" required>
                                       </div>
                                   </div>
                                 </td>
                                 <td>
-                            <select name="status">
+
+                            <select name="test[outcome][]" required>
 
                             
                               <option value="">select</option>
-                              <option value="1" {{$order->order_status=='1'?'selected':''}}>Low</option>
-                              <option value="2" {{$order->order_status=='2'?'selected':''}}>Normal</option>
-                              <option value="3" {{$order->order_status=='3'?'selected':''}}>High</option>
-
+                              <option value="Low">Low</option>
+                              <option value="Normal">Normal</option>
+                              <option value="High">High</option>
 
 
                          </select>
@@ -272,7 +283,7 @@
                         @endforeach
                   
                 </table>
-              </div>
+              </div> -->
 
 
 

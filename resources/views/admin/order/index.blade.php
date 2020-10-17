@@ -105,7 +105,7 @@
                       <td>{{count($order->partners)?$order->partners[0]->labname:''}}</td>
                       <td>
                       <a href="{{route('order.show',$order->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
-                    
+                      <a href="{{route('report.show',$order->id)}}"  class="btn"><i class="fa fa-file"></i></a>
 
                     </td>
 

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Report;
 use App\Order;
-use Session;
 use App\Partner;
-use Illuminate\Support\Facades\Auth;
+use Session;
 
-class OrderController extends Controller
+class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,20 +18,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-
-        // for listin of orders assigned to a partner
-        if(Auth::guard('member')->check()){
-            $member_id=Auth::guard('member')->user()->id;
-            $partner=Partner::where('member_id',$member_id)->first();
-            $order=$partner->orders;
-            // $order=Order
-        }
-        else{
-            $order=Order::all();
-        }
-
         
-        return view('admin.order.index')->withOrders($order);
+        return view('admin.report.report');
+
     }
 
     /**
@@ -65,7 +54,12 @@ class OrderController extends Controller
     {
         $order=Order::find($id);
         $partner=Partner::get();
-        return view('admin.order.show')->withOrder($order)->withPartners($partner);
+        $report=Report::where('order_id',$id)->get();
+
+        // dd($report);
+
+        return view('admin.report.show')->withOrder($order)->withPartners($partner)->withReports($report);
+
     }
 
     /**
@@ -88,30 +82,35 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        // dd($request['test']);
 
-dd($request['test']);
+        $rep=Report::where('order_id',$id)->get();
 
-        // execute when the request is from member 
-        if(Auth::guard('member')->check()){
-        $order=Order::find($id);
-        $order->order_status=$request->status;
-        $order->save();
-}
-else{
-        // execute when the request is from admin 
-        $order=Order::find($id);
-        $order->order_status=$request->status;
-        $order->save();
-        $order->partners()->sync($request->partner);
-}
+        foreach ($rep as $k => $v) {
+            
+            $v->delete();
+        }
 
+        foreach ($request['test']['test'] as $key => $value) {
+            
+        $report=new Report;
+        $report->note=$request['note'];
+        $report->lab_id=$request['partner'];
+        $report->order_id=$id;
+        $report->test_name=$value;
+        $report->parameter=$request['test']['parameter'][$key];
+        $report->mcl=$request['test']['mcl'][$key];
+        $report->mdl=$request['test']['mdl'][$key];
+        $report->result=$request['test']['result'][$key];
+        $report->outcome=$request['test']['outcome'][$key];
 
+        $report->save();
 
-        session::flash('success', 'Order Status Has Been Updated Successfully!');
+        }
+
+        session::flash('success', 'The Report Has Been Updated Successfully!');
         return redirect()->route('order.index');
 
-        // return view('admin.order.show')->withOrder($order);
     }
 
     /**

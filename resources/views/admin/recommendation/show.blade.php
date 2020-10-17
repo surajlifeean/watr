@@ -49,7 +49,7 @@
                                   <div class="form-group">
                                      <div class="col-sm-9">
 
-                                        <select class="js-example-basic-multiple form-control" name="parameters[High][{{$parameters->id}}]" multiple="multiple">
+                                        <select class="js-example-basic-multiple form-control" name="parameters[{{$parameters->id}}][High]" multiple="multiple">
                                           <option value="{{$recom->id}}" selected="selected">{{$recom->recommendations}}</option>   
                                             @foreach($recommends as $key=>$value)
                                             <option value="{{$value}}">{{$key}}</option>
@@ -67,7 +67,7 @@
                     @if($high==0)
                                 <div class="form-group">
                                    <div class="col-sm-9">
-                                          <select class="js-example-basic-multiple form-control" name="parameters[High][{{$parameters->id}}]" multiple="multiple">
+                                          <select class="js-example-basic-multiple form-control" name="parameters[{{$parameters->id}}][High]" multiple="multiple">
  
                                             @foreach($recommends as $key=>$value)
                                             <option value="{{$value}}">{{$key}}</option>
@@ -84,7 +84,7 @@
 
                                   <div class="form-group">
                                      <div class="col-sm-9">
-                                            <select class="js-example-basic-multiple form-control" name="parameters[Low][{{$parameters->id}}]" multiple="multiple">
+                                            <select class="js-example-basic-multiple form-control" name="parameters[{{$parameters->id}}][Low]" multiple="multiple">
                                               <option value="{{$recom->id}}" selected="selected">{{$recom->recommendations}}</option>   
                                             @foreach($recommends as $key=>$value)
                                             <option value="{{$value}}">{{$key}}</option>
@@ -101,7 +101,7 @@
                                    <div class="col-sm-9">
 
 
-                                            <select class="js-example-basic-multiple form-control" name="parameters[Low][{{$parameters->id}}]" multiple="multiple">
+                                            <select class="js-example-basic-multiple form-control" name="parameters[{{$parameters->id}}][Low]" multiple="multiple">
 
                                             @foreach($recommends as $key=>$value)
                                             <option value="{{$value}}">{{$key}}</option>

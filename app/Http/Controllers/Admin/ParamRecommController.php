@@ -8,7 +8,7 @@ use App\Recommendation;
 use App\Parameter;
 use App\Test;
 use Session;
-
+use App\Paramrecom;
 
 class ParamRecommController extends Controller
 {
@@ -83,7 +83,47 @@ class ParamRecommController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        // dd($request);
+
+        $collection = Paramrecom::get();
+
+            foreach($collection as $c) {
+
+            $c->delete();
+
+        }
+
+
+        foreach ($request['parameters'] as $key => $value) {
+            
+        //     ##check if the data exists?
+            foreach ($value as $k => $v) {
+                
+                if($k=='High'){
+                    $pr=new Paramrecom;
+                    $pr->parameter_id=$key;
+                    $pr->recommendation_id=$v;
+                    $pr->outcome='High';
+                    $pr->save();
+                }
+                    // $pr=Paramrecom::where([['parameter_id','=',$key],['outcome','=','High'],['recommendation_id','=',$v]])->get();
+                if($k=='Low'){
+                    $pr=new Paramrecom;
+                    $pr->parameter_id=$key;
+                    $pr->recommendation_id=$v;
+                    $pr->outcome='Low';
+                    $pr->save();
+                }
+                    // $pr=Paramrecom::where([['parameter_id','=',$key],['outcome','=','Low'],['recommendation_id','=',$v]])->get();
+              }
+
+        }
+
+        session::flash('success', 'The Parameters Has Been Mapped to Recommendations Successfully!');
+        return redirect()->route('param-recomm.index');
+
+        // $recom=new Recommendation;
+
     }
 
     /**

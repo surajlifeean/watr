@@ -118,6 +118,10 @@
                       !!}
                       {!! Form::submit('Submit') !!}
                       {!! Form::close() !!}
+
+                      <!-- <i class="fa fa-file" aria-hidden="true"></i> -->
+
+                      
                     </td>
 
                     </tr>

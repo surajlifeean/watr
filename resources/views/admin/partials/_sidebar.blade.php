@@ -125,7 +125,8 @@
         <div id="collapseRecom" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{route('recommendation.index')}}">Recommendation</a>
-            
+            <a class="collapse-item" href="{{route('param-recomm.index')}}">Assign Recomendations</a>
+
          </div>
         </div>
       </li>
