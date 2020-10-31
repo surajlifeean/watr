@@ -8,6 +8,7 @@ use App\Report;
 use App\Order;
 use App\Partner;
 use Session;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -123,4 +124,32 @@ class ReportController extends Controller
     {
         //
     }
+
+    public function pdfReport($id)
+    {
+        $order=Order::find($id);
+        $reports=Report::where('order_id',$id)->get();
+
+        $labid=Report::where('order_id',$id)->distinct('lab_id')->pluck('lab_id');
+        
+        $partner=Partner::where('id',$labid)->first();
+
+        // dd($partner);
+        $data['reports']=$reports;
+        $data['partner']=$partner;
+
+        $pdf = \PDF::loadView('admin.report.report', compact('data'));
+        // If you want to store the generated pdf to the server then you can use the store function
+        $path=public_path('/images/about/'.'pdffile2.pdf');
+        $pdf->save($path);
+        // Finally, you can download the file using download function
+        // return $pdf->download('admin.report.report');
+
+
+
+        return view('admin.report.report')->withOrder($order)->withData($data);
+
+    }
+
+
 }

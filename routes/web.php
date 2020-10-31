@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/report', function () {
-    return view('report');
-});
+// Route::get('/report', function () {
+//     return view('report');
+// });
 
 // Route::get('/about', function () {
 //     return view('about');
@@ -72,6 +72,7 @@ Route::prefix('admin')->group(function() {
 
     Route::resource('report', 'Admin\ReportController');
 
+    Route::get('/pdfreport/{id}', 'Admin\ReportController@pdfReport')->name('admin.pdfreport');
 
     Route::resource('recommendation', 'Admin\RecommendationController');
 
