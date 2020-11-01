@@ -1,6 +1,27 @@
 @extends('admin.adminmain')
 @section('title',"Order")
 @section('stylesheets')
+
+<style>
+.cust-btn {
+    color: #fff;
+    background-color: #1cc88a;
+    border-color: #1cc88a;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .35rem;
+    transition: color .15s;
+}
+
+
+  </style>
 @endsection
 
 @section('content')
@@ -219,6 +240,8 @@
 
             <input type="submit" class="btn btn-success btn-s-xs" value="Update"/>
 
+            <!-- <input type="submit" class="btn btn-success btn-s-xs" value="Generate Report"/> -->
+
 
             </div>
 
@@ -226,6 +249,10 @@
 
     
                      {{Form::close()}}
+<br>
+                    <!-- <a href="{{url('/admin/parameter')}}" class="btn btn-danger">Cancel</a> -->
+
+                    <a href="{{url('admin/pdfreport/'.$order->id)}}"><button class="cust-btn">Generate Report</button></a>
                       
                       
           

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
 	<!-- CHANGE THE TITLE HERE -->
@@ -8,35 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- BOOTSTRAP V4.0 ALL CDN LINKS START -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-  <!-- BOOTSTRAP V4.0 ALL CDN LINKS END -->
-
+  
   <style type="text/css">
 
   	/*TABLE BORDER COLOR START*/
   	table.table-bordered{
     border:1px solid black;
-  }
-table.table-bordered > thead > tr > th{
-    border:1px solid black;
-}
-table.table-bordered > tbody > tr > td{
-    border:1px solid black;
-}
+    }
+    table.table-bordered > thead > tr > th{
+        border:1px solid black;
+    }
+    table.table-bordered > tbody > tr > td{
+        border:1px solid black;
+    }
 /*TABLE BORDER COLOR END*/
 
   </style>
-
- <!-- PAGE PRINT TEST -->
- <script>
-function printPage() {
-  window.print();
-}
-
-</script>
 
 
 </head>
@@ -52,39 +39,24 @@ function printPage() {
  @endphp
 	 <center><h3 style="color:#6086E6">WATR TECHNOLOGIES LAB REPORT</h3></center>
 
-	 <div class="row">
-	  <div class="col-sm-4">
-     
-      <img src="{{asset('images/logo.png')}}" alt="Company Logo" style="width: 200px">
 
-    </div>
-	  <div class="col-sm-8">
-	  	 <div class="row">
-		  <div class="col-sm-3 col-xs-6">
-		  	<strong><p>Order Number:</p></strong>
-		  	<strong><p>Lab Number:</p></strong>
-		  	<strong><p>Name:</p></strong>
-		  	<strong><p>Address:</p></strong>
-		  	<strong><p>City, State, Zip:</p></strong>
-		  </div>
-		  <div class="col-sm-3 col-xs-6">
-		  	<p>1234567890</p>
-		  	<p>L{{$partner->id}}</p>
-		  	<p>{{$partner->labname}}</p>
-		  	<p>Hooghly</p>
-		  	<p>Hooghly</p>
-		  </div>
-		  <div class="col-sm-3 col-xs-6">
-		  	<strong><p>Source/Location:</p></strong>
-		  	<strong><p>Date Collected:</p></strong>
-		  </div>
-		  <div class="col-sm-3 col-xs-6">
-		  	<p>{{$partner->location}}</p>
-		  	<p>12/07/2020</p>
-		  </div>
-		 </div>
-	  </div>
-	 <br>
+<!--       <img src="{{asset('images/logo.png')}}" alt="Company Logo" style="width: 200px">
+ -->
+
+<table>  
+<tr><td>Order Number:</td><td>1234567890</td></tr> 
+<tr><td>Lab Number:</td><td>L{{$partner->id}}</td></tr> 
+<tr><td>Name:</td><td>{{$partner->labname}}</td></tr>  
+<tr><td>Address:</td><td>72</td></tr> 
+<tr><td>City, State, Zip:</td><td>72</td></tr>  
+<tr><td>Source/Location:</td><td>{{$partner->location}}</td></tr>  
+
+<tr><td>Date Collected:</td><td>12/07/2020</td></tr>  
+
+
+</table>  
+
+
 @php 
   $prevName='';
   $start=1;
@@ -109,7 +81,7 @@ function printPage() {
    <h4 style="color: green">{{$currName}}</h4>
 
     <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered" width="100%" style="width:100%; align-self: center;" border="0">
       <thead>
         <tr>
           <th>Parameter</th>

@@ -127,6 +127,7 @@ class ReportController extends Controller
 
     public function pdfReport($id)
     {
+
         $order=Order::find($id);
         $reports=Report::where('order_id',$id)->get();
 
@@ -134,20 +135,29 @@ class ReportController extends Controller
         
         $partner=Partner::where('id',$labid)->first();
 
-        // dd($partner);
         $data['reports']=$reports;
         $data['partner']=$partner;
 
+
         $pdf = \PDF::loadView('admin.report.report', compact('data'));
-        // If you want to store the generated pdf to the server then you can use the store function
-        $path=public_path('/images/about/'.'pdffile2.pdf');
+
+        $filename='report'.'-'.$labid[0].'-'.time().'.pdf';
+        $path=public_path('/images/reports/'.$filename);
         $pdf->save($path);
-        // Finally, you can download the file using download function
-        // return $pdf->download('admin.report.report');
+
+
+        foreach ($reports as $r) {
+            $rep=Report::find($r->id);
+            $rep->filename=$filename;
+            $rep->save();
+        }
 
 
 
-        return view('admin.report.report')->withOrder($order)->withData($data);
+        // return view('admin.report.report')->withOrder($order)->withData($data);
+        session::flash('success', 'The Report Has Been Generated Successfully!');
+        return redirect()->route('report.show',$id);
+
 
     }
 
