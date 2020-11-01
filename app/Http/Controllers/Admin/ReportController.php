@@ -53,6 +53,7 @@ class ReportController extends Controller
      */
     public function show($id)
     {
+        // dd($id);
         $order=Order::find($id);
         $partner=Partner::get();
         $report=Report::where('order_id',$id)->get();

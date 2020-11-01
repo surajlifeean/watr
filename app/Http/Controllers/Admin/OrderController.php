@@ -23,7 +23,11 @@ class OrderController extends Controller
         if(Auth::guard('member')->check()){
             $member_id=Auth::guard('member')->user()->id;
             $partner=Partner::where('member_id',$member_id)->first();
-            $order=$partner->orders;
+            if(isset($partner))
+                $order=$partner->orders;
+            else
+                $order=null;
+            // dd($order);
             // $order=Order
         }
         else{
@@ -90,7 +94,7 @@ class OrderController extends Controller
     {
         
 
-dd($request['test']);
+// dd($request['test']);
 
         // execute when the request is from member 
         if(Auth::guard('member')->check()){

@@ -75,6 +75,8 @@
                   </tfoot>
                   <tbody>
 
+@if(isset($orders))
+
                   	@foreach($orders as $order)
                   	 <tr>
                       <td>
@@ -110,8 +112,13 @@
                     </td>
 
                     </tr>
+
                   	@endforeach
-                    
+@else
+<tr><td colspan="10">No order has been assigned to you</td>
+</tr>
+@endif
+
                   </tbody>
                 </table>
               </div>

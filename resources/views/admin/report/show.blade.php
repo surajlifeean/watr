@@ -252,9 +252,15 @@
 <br>
                     <!-- <a href="{{url('/admin/parameter')}}" class="btn btn-danger">Cancel</a> -->
 
+
+
+@if(count($reports)>0)
                     <a href="{{url('admin/pdfreport/'.$order->id)}}"><button class="cust-btn">Generate Report</button></a>
-                      
-                      
+@if(!is_null($reports[0]->filename))
+                    <a href="{{asset('/images/reports/'.$reports[0]->filename)}}" target="_blank"s>Check report</a>
+  
+@endif               
+@endif    
           
 
 </section>
