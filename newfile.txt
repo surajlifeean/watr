@@ -1,0 +1,16 @@
+{
+	"labname":"Pragati",
+	"contactperson":"Soujit Sendupta",
+	"number":8384089270,
+	"designation":"Assistant",
+	"panno":"BAABPJ42470",
+	"gstno":"08328392899",
+"address":"Newtown",
+"lat":100,
+"long":20,
+"pincode":"712503",
+"city":"Agra",
+"state":"Delhi",
+	"tests":[
+		  ]
+}

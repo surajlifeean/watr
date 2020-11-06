@@ -16,12 +16,21 @@ class PartnerController extends Controller
     public function addPartner(Request $request)
     {
 
+
 // dd($request);
 // return response()->json($request, '200');
 
 	foreach ($request->request as $key => $value) {
 	// echo $value;
 	}      
+
+
+	$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+// $txt = "John Doe\n";
+	fwrite($myfile, $value);
+
+	
+
 	$partner=new Partner;
 	// dd($value);
 	$ob=json_decode($value, true);
@@ -217,6 +226,11 @@ echo json_encode($response);
 
 	public function nearestLabs(Request $request)
 		{
+			$lat = $request->query('lat');
+			$long = $request->query('long');
+
+			dd($lat);
+
 			$lat = $request->lat;
 			$long = $request->long;
 			// $pincode=$request['pincode'];
