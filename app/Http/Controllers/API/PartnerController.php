@@ -23,6 +23,7 @@ class PartnerController extends Controller
 	// echo $value;
 	}      
 	$partner=new Partner;
+	// dd($value);
 	$ob=json_decode($value, true);
 	$partner->labname=$ob['labname'];
 	$partner->contactperson=$ob['contactperson'];
@@ -30,7 +31,6 @@ class PartnerController extends Controller
 	$partner->designation=$ob['designation'];
 	$partner->panno=$ob['panno'];
 	$partner->gstno=$ob['gstno'];
-	$partner->status='A';
 	$partner->address=$ob['address'];
 	$partner->pincode=$ob['pincode'];
 	$partner->city=$ob['city'];
@@ -38,6 +38,7 @@ class PartnerController extends Controller
 	$partner->long=$ob['long'];
 	$partner->lat=$ob['lat'];
 
+	$partner->status='A';
 
 	$checkPartnerExists=Partner::where('gstno',$partner->gstno)->first();
 			if(isset($checkPartnerExists)){

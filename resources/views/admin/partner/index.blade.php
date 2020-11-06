@@ -81,6 +81,12 @@
                         <a href="{{route('partner.show',$partner->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
                       <i class="fas fa-eye"></i>
                       </a>
+
+                      <a href="{{route('partner.edit',$partner->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
+                      <i class="fas fa-pen"></i>
+                      </a>
+
+  
 <!-- 
                         <a href="{{route('partner.edit',$partner->id)}}"  class="btn"><i class="fas fa-pen"></i></a> -->
 
@@ -109,6 +115,10 @@
                                     {!! Form::submit('Submit') !!}
                                     {!! Form::close() !!}
 
+
+                      @if(!is_null($partner->member_id))
+                      <i class="fas fa-check"></i>
+                      @endif    
 
 
                       </td>

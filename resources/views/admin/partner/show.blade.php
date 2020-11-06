@@ -44,6 +44,22 @@
                           </div>
                         </div>
 
+                        <div class="line line-dashed line-lg pull-in"></div>
+                      
+                       <div class="form-group">
+                          <label class="col-sm-3 control-label">Address</label>
+                          <div class="col-sm-9">
+                          {{Form::label('Null',$partner->address, ['class' => 'form-control','data-required'=>'true','disabled'])}}
+                          </div>
+                        </div>
+
+                       <div class="form-group">
+                          <label class="col-sm-3 control-label">State/City/PinCode</label>
+                          <div class="col-sm-9">
+                          {{Form::label('Null',$partner->state.", ".$partner->city.", ".$partner->pincode, ['class' => 'form-control','data-required'=>'true','disabled'])}}
+                          </div>
+                        </div>
+
                        <div class="line line-dashed line-lg pull-in"></div>
                       
                        <div class="form-group">
