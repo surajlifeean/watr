@@ -15,6 +15,12 @@ class AboutusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+        public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         $about=About::orderby('type','asc')->get();
