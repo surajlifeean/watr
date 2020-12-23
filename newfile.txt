@@ -14,3 +14,31 @@
 	"tests":[
 		  ]
 }
+
+{
+"labname":"Test master",
+"contactperson":"Sunil Kumawat",
+"number":"8566484584",
+"designation":"ceo",
+"panno":"BABPJ7254F",
+"gstno":"253624365897452",
+"tests":[{"id":1,"cost":"10"},{"id":2,"cost":"12"},{"id":4,"cost":"20"},{"id":5,"cost":"14"}],
+"address":"kestopur",
+"state":"west bengal",
+"city":"kolkata",
+"pincode":"700102",
+"lat":22.5942857,
+"long":88.4362977
+}
+{"labname":"Dummy labs",
+"contactperson":"Gautam Gambhi",
+"number":"1523654123",
+"designation":"tl",
+"panno":"FJKG5243GG",
+"gstno":"525663689574123",
+"tests":[{"id":1,"cost":"2"},{"id":2,"cost":"9"},{"id":4,"cost":"5"},{"id":5,"cost":"8"},{"id":6,"cost":"9"}],
+"address":"tribeni",
+"state":"west bengal",
+"city":"hooghly",
+"pincode":"712503",
+"lat":22.5942857,"long":88.4362977}

@@ -103,7 +103,7 @@ class TestController extends Controller
 
 			foreach ($reports as $key=>$report) {
 				$current=$report['order_id'];
-				$report_response[$report['order_id']]['report_file_path']=url('/public/images/'.$report['filename']);
+				$report_response[$report['order_id']]['report_file_path']=url('/public/images/reports/'.$report['filename']);
 
 
 				$report_response[$report['order_id']]['tests'][$report['test_name']][]=['parameter'=>$report['parameter'],'result'=>$report['result']];

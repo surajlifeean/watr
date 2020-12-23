@@ -64,7 +64,7 @@
                             <select name="type" required>
                          <option value="">select</option>
                          <option value="D">Default</option>
-                         <option value="G">Others</option>
+                         <option value="G">Group</option>
                          <option value="I">Individual</option>
                            </select>
 

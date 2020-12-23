@@ -104,7 +104,7 @@
                       <td>{{$order->created_at}}</td>
                       <td>{{$order->pickup_date}}</td>
                       <td>Rs{{$order->billamt}}</td>
-                      <td>{{count($order->partners)?$order->partners[0]->labname:''}}</td>
+                      <td>{{is_null($order->partners)?'None':$order->partners[0]->labname}}</td>
                       <td>
                       <a href="{{route('order.show',$order->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
                       <a href="{{route('report.show',$order->id)}}"  class="btn"><i class="fa fa-file"></i></a>
